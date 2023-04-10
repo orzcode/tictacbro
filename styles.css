@@ -41,10 +41,10 @@ a {
 /* ---------------------------------------------------- */
 :root {
   /* --watermelonDark: #8d2848; */
-  --watermelonDark: #2f0815;
-  --watermelonLight: #b6807a;
-  --watermelonSkinDark: #0c5334;
-  --watermelonSkinLight: #588048;
+  --watermelonDark: #0d2f43;
+  --watermelonLight: #777777;
+  --watermelonSkinDark: #764a1e;
+  --watermelonSkinLight: #6e0000;
 }
 /* ---------------------------------------------------- */
 #container {
