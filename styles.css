@@ -86,7 +86,7 @@ h1 {
 	justify-items: center;
 }
 
-#ticTac{
+#gameBoard{
 	display: grid;
   grid-template-columns: repeat(3, 1fr);
 	background-color: aquamarine;

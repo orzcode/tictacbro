@@ -1,6 +1,7 @@
 let GameBoard = (() => {
 	let tiles = new Array(9).fill(null);
-	return {tiles};
+	let click = (Player, tile) => tiles[tile] = Player.symbol
+	return {tiles , click};
 })();
 console.log(GameBoard.tiles);
 //IIFE-wrapped, AKA a module
