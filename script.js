@@ -8,13 +8,15 @@
 
 
 
-// let Player = (name, symbol) => {
-// 	let outcome = (outcome) => console.log(name + " " + outcome);
-// 	return { name, symbol, outcome };
-// }
-// //Factory function, since it 'returns' the needed
-// const Orz = Player('orz', 'X');
-// Orz.outcome('win');
+let player = (name, symbol) => {
+		return { name, symbol };
+}
+//Factory function, since it 'returns' the needed
+//doesn't use "new", which is how it's a 'factory function'
+const player1 = player('Player 1 (X)', 'X');
+const player2 = player('Player 2 (O)', 'O');
+console.log(player2.symbol);
+document.getElementById("2").innerText = player2.symbol //
 
 
 
@@ -29,15 +31,22 @@
 // 	tileArray[tileDiv#id] = player.Symbol
 // 	}
 // 	else
-// 	do nothing (or maybe a visual 'no' clue)
+// 	do nothing (or maybe a visual 'no' clue in case of existing symbol)
 // }
 ////////////////////////////
 let GameBoard = (() => {
 	let init = (() => {
 		let tileArray = new Array(9).fill(null);
-		tileArray.forEach(func => {
+		tileArray.forEach(tile => {
 			console.log("test");
-		});
+			
+			addEventListener(click, applySymbol);
+			function applySymbol(player){
+			if (tile === null){
+				tile = player.symbol
+		}
+	}
+	});
 	})();
 	return {init};
 })();
