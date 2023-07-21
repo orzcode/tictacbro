@@ -80,10 +80,17 @@ h1 {
 	background-color: var(--watermelonDark);
 	color: var(--watermelonLight);
 	display: flex;
+  flex-direction: column;
 	flex-grow: 1;
 	width: 100%;
 	align-items: center;
 	justify-items: center;
+}
+
+#infoDisplay {
+  display: block;
+  margin-top: auto;
+  /*Need to fix vertical spacing here with gameboard*/
 }
 
 #gameBoard{
