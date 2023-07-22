@@ -66,11 +66,23 @@
 //----------------------------------------------------//
 //Some of these will be global to begin with, just move them into main objects later//
 
-let GameBoard = (() => {
-  let init = () => {
-    let tileArray = new Array(9).fill(null);
+const Player = (name, symbol) => {
+  const getName = () => {return name};
+  const getSymbol = () => {return symbol};
+  //I guess I'll set these initially by default below, but
+  //if I want to change or 'set' to something else (eg named players)
+  //then i'll need to make setName() too
+  return {getName, getSymbol}
+};
+const player1 = Player("Player 1 (X)", "X")
+const player2 = Player("Player 2 (O)", "O")
+//console.log(player1.getName())
+
+const GameBoard = (() => {
+  const init = () => {
+    const tileArray = new Array(9).fill(null);
     tileArray.forEach((tile) => {
-      console.log("test");
+      console.log("gameboard tileArray forEach");
 
       //   addEventListener(click, applySymbol);
       //   function applySymbol(player) {
@@ -107,23 +119,24 @@ let GameBoard = (() => {
     [null, null, "O", null, "O", null, "O", null, null],
   ];
   //diagonal
-
   const simpleWinStates = [
     // Horizontal win states
     [0, 1, 2], // 1st row
     [3, 4, 5], // 2nd row
     [6, 7, 8], // 3rd row
-  
+
     // Vertical win states
     [0, 3, 6], // 1st column
     [1, 4, 7], // 2nd column
     [2, 5, 8], // 3rd column
-  
+
     // Diagonal win states
     [0, 4, 8], // Top-left to bottom-right diagonal
     [2, 4, 6], // Top-right to bottom-left diagonal
   ];
-
   return { init };
+  //current thinking: don't return winstates - create a function within gameboard that checks them.
+  //pass this the player.getSymbol() method (maybe), but in either case, keep the checker function in
+  //here and also keep the winstates in here, so they dont leak but can still be checked.
 })();
 GameBoard.init();
