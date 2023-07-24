@@ -120,32 +120,6 @@ const GameBoard = (() => {
     });
   };
 
-  // const winStates = [
-  //   ["X", "X", "X", null, null, null, null, null, null],
-  //   [null, null, null, "X", "X", "X", null, null, null],
-  //   [null, null, null, null, null, null, "X", "X", "X"],
-
-  //   ["O", "O", "O", null, null, null, null, null, null],
-  //   [null, null, null, "O", "O", "O", null, null, null],
-  //   [null, null, null, null, null, null, "O", "O", "O"],
-  //   //horizontal
-
-  //   ["X", null, null, "X", null, null, "X", null, null],
-  //   [null, "X", null, null, "X", null, null, "X", null],
-  //   [null, null, "X", null, null, "X", null, null, "X"],
-
-  //   ["O", null, null, "O", null, null, "O", null, null],
-  //   [null, "O", null, null, "O", null, null, "O", null],
-  //   [null, null, "O", null, null, "O", null, null, "O"],
-  //   //vertical
-
-  //   ["X", null, null, null, "X", null, null, null, "X"],
-  //   [null, null, "X", null, "X", null, "X", null, null],
-
-  //   ["O", null, null, null, "O", null, null, null, "O"],
-  //   [null, null, "O", null, "O", null, "O", null, null],
-  // ];
-  //diagonal
   const winStates = [
     // Horizontal win states
     [0, 1, 2], // 1st row
