@@ -110,13 +110,14 @@ const GameBoard = (() => {
 
     const winChecker = () => {
 
-      winStates.forEach((subArr) => {
-        console.log(tileArray[subArr[2]])
+        for (const subArr of winStates){
         if (
-          (tileArray[subArr[0]] &&
-            tileArray[subArr[1]] &&
-            tileArray[subArr[2]] == player1.getSymbol()) ||
-          player2.getSymbol()
+          (tileArray[subArr[0]] == player1.getSymbol()&&
+            tileArray[subArr[1]] == player1.getSymbol()&&
+            tileArray[subArr[2]] == player1.getSymbol() ||
+            tileArray[subArr[0]] == player2.getSymbol()&&
+            tileArray[subArr[1]] == player2.getSymbol()&&
+            tileArray[subArr[2]] == player2.getSymbol()) 
         ) {
           console.log("Win state confirmed for " + tileArray[subArr[0]]);
           //stopgap measure, but surely any of the 3 tile that passes means a win
@@ -125,24 +126,9 @@ const GameBoard = (() => {
           console.log("no wins here");
           return
         }
-      });
+      }
     };
   };
-  //console.log(tileArray)
-  // const winChecker = () => {
-  //   winStates.forEach((subArr) => {
-  //     if (
-  //       (tileArray[subArr][0] &&
-  //         tileArray[subArr][1] &&
-  //         tileArray[subArr][2] == player1.getSymbol()) ||
-  //       player2.getSymbol()
-  //     ) {
-  //       console.log("Win state confirmed for " + tileArray[subArr][0]);
-  //     } else {
-  //       console.log("no wins here");
-  //     }
-  //   });
-  // };
 
   const winStates = [
     // Horizontal win states
