@@ -67,59 +67,86 @@
 //Some of these will be global to begin with, just move them into main objects later//
 
 const Player = (name, symbol) => {
-  const getName = () => {return name};
-  const getSymbol = () => {return symbol};
+  const getName = () => {
+    return name;
+  };
+  const getSymbol = () => {
+    return symbol;
+  };
   //I guess I'll set these initially by default below, but
   //if I want to change or 'set' to something else (eg named players)
   //then i'll need to make setName() too
-  return {getName, getSymbol}
+  return { getName, getSymbol };
 };
-const player1 = Player("Player 1 (X)", "X")
-const player2 = Player("Player 2 (O)", "O")
-//console.log(player1.getName())
+const player1 = Player("Player 1 (X)", "X");
+const player2 = Player("Player 2 (O)", "O");
+let currentPlayer = player1;
+console.log(player1.getSymbol());
 
 const GameBoard = (() => {
   const init = () => {
     const tileArray = new Array(9).fill(null);
-    tileArray.forEach((tile) => {
-      console.log("gameboard tileArray forEach");
+    //creates an empty array with empty (null) values
 
-      //   addEventListener(click, applySymbol);
-      //   function applySymbol(player) {
-      //     if (tile === null) {
-      //       tile = player.symbol;
-      //     }
-      //   }
+    for (let tile = 0; tile <= 8; tile++) {
+      document
+        .querySelector(`#tile-${tile}`)
+        .addEventListener("click", function (currentPlayer) {
+          if (tileArray[tile] === null) {
+            document.querySelector(`#tile-${tile}`).innerHTML =
+              currentPlayer.getSymbol();
+            tileArray[tile] = currentPlayer.getSymbol(); // Update tileArray with player's symbol
+            currentPlayer = currentPlayer === player1 ? player2 : player1; // Switch to the other player
+            winChecker();
+          } else console.log("Can't apply playerSymbol - tile is not NULL!");
+        });
+    }
+    //through 0 to 8 (1 to 9), appends onclick to respective html tile ID#,
+    //if respective tileArray[tile] value is null
+  };
+
+  const winChecker = () => {
+    winStates.forEach((subArr) => {
+      if (
+        (tileArray[subArr][0] &&
+          tileArray[subArr][1] &&
+          tileArray[subArr][2] == player1.getSymbol()) ||
+        player2.getSymbol()
+      ) {
+        console.log("Win state confirmed for " + tileArray[subArr][0]);
+      } else {
+        console.log("no wins here");
+      }
     });
   };
 
-  const winStates = [
-    ["X", "X", "X", null, null, null, null, null, null],
-    [null, null, null, "X", "X", "X", null, null, null],
-    [null, null, null, null, null, null, "X", "X", "X"],
+  // const winStates = [
+  //   ["X", "X", "X", null, null, null, null, null, null],
+  //   [null, null, null, "X", "X", "X", null, null, null],
+  //   [null, null, null, null, null, null, "X", "X", "X"],
 
-    ["O", "O", "O", null, null, null, null, null, null],
-    [null, null, null, "O", "O", "O", null, null, null],
-    [null, null, null, null, null, null, "O", "O", "O"],
-    //horizontal
+  //   ["O", "O", "O", null, null, null, null, null, null],
+  //   [null, null, null, "O", "O", "O", null, null, null],
+  //   [null, null, null, null, null, null, "O", "O", "O"],
+  //   //horizontal
 
-    ["X", null, null, "X", null, null, "X", null, null],
-    [null, "X", null, null, "X", null, null, "X", null],
-    [null, null, "X", null, null, "X", null, null, "X"],
+  //   ["X", null, null, "X", null, null, "X", null, null],
+  //   [null, "X", null, null, "X", null, null, "X", null],
+  //   [null, null, "X", null, null, "X", null, null, "X"],
 
-    ["O", null, null, "O", null, null, "O", null, null],
-    [null, "O", null, null, "O", null, null, "O", null],
-    [null, null, "O", null, null, "O", null, null, "O"],
-    //vertical
+  //   ["O", null, null, "O", null, null, "O", null, null],
+  //   [null, "O", null, null, "O", null, null, "O", null],
+  //   [null, null, "O", null, null, "O", null, null, "O"],
+  //   //vertical
 
-    ["X", null, null, null, "X", null, null, null, "X"],
-    [null, null, "X", null, "X", null, "X", null, null],
+  //   ["X", null, null, null, "X", null, null, null, "X"],
+  //   [null, null, "X", null, "X", null, "X", null, null],
 
-    ["O", null, null, null, "O", null, null, null, "O"],
-    [null, null, "O", null, "O", null, "O", null, null],
-  ];
+  //   ["O", null, null, null, "O", null, null, null, "O"],
+  //   [null, null, "O", null, "O", null, "O", null, null],
+  // ];
   //diagonal
-  const simpleWinStates = [
+  const winStates = [
     // Horizontal win states
     [0, 1, 2], // 1st row
     [3, 4, 5], // 2nd row
@@ -133,6 +160,8 @@ const GameBoard = (() => {
     // Diagonal win states
     [0, 4, 8], // Top-left to bottom-right diagonal
     [2, 4, 6], // Top-right to bottom-left diagonal
+
+    //need to check tileArray to see if PLAYER1 || 2.SYMBOL is in all 3 of any WINSTATES arrays
   ];
   return { init };
   //current thinking: don't return winstates - create a function within gameboard that checks them.
