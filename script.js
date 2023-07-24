@@ -118,6 +118,7 @@ const GameBoard = (() => {
             tileArray[subArr[0]] == player2.getSymbol()&&
             tileArray[subArr[1]] == player2.getSymbol()&&
             tileArray[subArr[2]] == player2.getSymbol()) 
+//CURRENT PROJECT - FIX THIS AND CLEAN/SIMPLIFY
         ) {
           console.log("Win state confirmed for " + tileArray[subArr[0]]);
           //stopgap measure, but surely any of the 3 tile that passes means a win
