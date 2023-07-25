@@ -109,23 +109,23 @@ const GameBoard = (() => {
     //if respective tileArray[tile] value is null
 
     const winChecker = () => {
-
-        for (const subArr of winStates){
+      for (const subArr of winStates) {
         if (
-          (tileArray[subArr[0]] == player1.getSymbol()&&
-            tileArray[subArr[1]] == player1.getSymbol()&&
-            tileArray[subArr[2]] == player1.getSymbol() ||
-            tileArray[subArr[0]] == player2.getSymbol()&&
-            tileArray[subArr[1]] == player2.getSymbol()&&
-            tileArray[subArr[2]] == player2.getSymbol()) 
-//CURRENT PROJECT - FIX THIS AND CLEAN/SIMPLIFY
+          (tileArray[subArr[0]] == player1.getSymbol() &&
+            tileArray[subArr[1]] == player1.getSymbol() &&
+            tileArray[subArr[2]] == player1.getSymbol()) ||
+          (tileArray[subArr[0]] == player2.getSymbol() &&
+            tileArray[subArr[1]] == player2.getSymbol() &&
+            tileArray[subArr[2]] == player2.getSymbol())
+          //CURRENT PROJECT - FIX THIS AND CLEAN/SIMPLIFY
         ) {
           console.log("Win state confirmed for " + tileArray[subArr[0]]);
-          //stopgap measure, but surely any of the 3 tile that passes means a win
-          return
+          //Very rudimentary method, but so long as the ABOVE checks pass,
+          //then surely any of the 3 tiles can be used here to determine the winner
+          return;
         } else {
-          console.log("no wins here");
-          return
+          //No win - continuing to loop through win conditions;
+          continue;
         }
       }
     };
