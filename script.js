@@ -80,8 +80,7 @@ const Player = (name, symbol) => {
 };
 const player1 = Player("Player 1 (X)", "X");
 const player2 = Player("Player 2 (O)", "O");
-//let currentPlayer = player1;
-console.log(player1.getSymbol());
+
 
 const GameBoard = (() => {
   const init = () => {
@@ -117,7 +116,6 @@ const GameBoard = (() => {
           (tileArray[subArr[0]] == player2.getSymbol() &&
             tileArray[subArr[1]] == player2.getSymbol() &&
             tileArray[subArr[2]] == player2.getSymbol())
-          //CURRENT PROJECT - FIX THIS AND CLEAN/SIMPLIFY
         ) {
           console.log("Win state confirmed for " + tileArray[subArr[0]]);
           //Very rudimentary method, but so long as the ABOVE checks pass,
@@ -127,6 +125,11 @@ const GameBoard = (() => {
           //No win - continuing to loop through win conditions;
           continue;
         }
+      }
+
+      //check if board is full:
+      if (tileArray.every((tile) => tile !== null)){
+        console.log("Board is full - stalemate")
       }
     };
   };
