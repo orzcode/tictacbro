@@ -12,6 +12,7 @@ html {
   font-size: 62.5%;
   /* FONTSIZE TRICK-- 1 rem = 10 px here, usually 1 rem = 16px */
   caret-color: transparent;
+  user-select: none;
   overflow-x: hidden;
 }
 body {
@@ -133,6 +134,11 @@ h1 {
 
 .tile:hover {
   filter: brightness(200%);
+}
+
+/*CURSOR POINTER*/
+.btn, .tile {
+  cursor: pointer;
 }
 /* ---------------------------------------------------- */
 /*--Modal Dialog--*/
