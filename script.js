@@ -66,7 +66,7 @@
 //----------------------------------------------------//
 //Some of these will be global to begin with, just move them into main objects later//
 
-const Player = (name, symbol) => {
+const Player = (name, symbol, p1, p2) => {
   const getName = () => {
     return name;
   };
@@ -76,32 +76,44 @@ const Player = (name, symbol) => {
   //I guess I'll set these initially by default below, but
   //if I want to change or 'set' to something else (eg named players)
   //then i'll need to make setName() too
-  return { getName, getSymbol };
-};
-const player1 = Player("Player 1 (X)", "X");
-const player2 = Player("Player 2 (O)", "O");
 
+  ///////////////////////////////////////////
+  const switchActive = () => {
+    symbol === p1.getSymbol()
+      ? (symbol = p2.getSymbol())
+      : (symbol = p1.getSymbol());
+      //console.log(symbol);
+      //return symbol
+  };
+  const reset = () => {
+    symbol === p1.getSymbol();
+  }
+  ///////////////////////////////////////////
+  //make as prototype? only of/for activeplayer?
+  //rewrite entirely?
+
+  return { getName, getSymbol, switchActive, reset };
+};
 
 const GameBoard = (() => {
+  const player1 = Player("Player 1 (X)", "X");
+  const player2 = Player("Player 2 (O)", "O");
+  const activePlayer = Player(null, "X", player1, player2);
+  //Player 1 takes the first turn -- change this if later implementing a diceroll
+
   const init = () => {
     const tileArray = new Array(9).fill(null);
     //creates an empty array with empty (null) values
-
-    let currentPlayer = player1.getSymbol();
-    //Player 1 takes the first turn -- change this if later implementing a diceroll
 
     for (let tile = 0; tile <= 8; tile++) {
       document
         .querySelector(`#tile-${tile}`)
         .addEventListener("click", function () {
           if (tileArray[tile] === null) {
-            document.querySelector(`#tile-${tile}`).innerHTML = currentPlayer;
-            tileArray[tile] = currentPlayer; // Update tileArray with player's symbol
-            currentPlayer === player1.getSymbol()
-              ? (currentPlayer = player2.getSymbol())
-              : (currentPlayer = player1.getSymbol()); 
-              // Switch to the other player
-              //Needs to be function as this action must be also reset at match end
+            document.querySelector(`#tile-${tile}`).innerHTML = activePlayer.getSymbol();
+            tileArray[tile] = activePlayer.getSymbol(); // Update tileArray with player's symbol
+            activePlayer.switchActive();
+            // Switch to the other player
             winChecker();
           } else console.log("Can't apply playerSymbol - tile is not NULL!");
         });
@@ -119,6 +131,7 @@ const GameBoard = (() => {
             tileArray[subArr[1]] == player2.getSymbol() &&
             tileArray[subArr[2]] == player2.getSymbol())
         ) {
+          activePlayer.reset()
           console.log("Win state confirmed for " + tileArray[subArr[0]]);
           //Very rudimentary method, but so long as the ABOVE checks pass,
           //then surely any of the 3 tiles can be used here to determine the winner
@@ -130,8 +143,9 @@ const GameBoard = (() => {
       }
 
       //check if board is full:
-      if (tileArray.every((tile) => tile !== null)){
-        console.log("Board is full - stalemate")
+      if (tileArray.every((tile) => tile !== null)) {
+        activePlayer.reset()
+        console.log("Board is full - stalemate");
       }
     };
   };
