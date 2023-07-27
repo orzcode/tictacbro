@@ -88,7 +88,7 @@ const GameBoard = (() => {
     //creates an empty array with empty (null) values
 
     let currentPlayer = player1.getSymbol();
-    //Player 1 takes the first turn
+    //Player 1 takes the first turn -- change this if later implementing a diceroll
 
     for (let tile = 0; tile <= 8; tile++) {
       document
@@ -99,7 +99,9 @@ const GameBoard = (() => {
             tileArray[tile] = currentPlayer; // Update tileArray with player's symbol
             currentPlayer === player1.getSymbol()
               ? (currentPlayer = player2.getSymbol())
-              : (currentPlayer = player1.getSymbol()); // Switch to the other player
+              : (currentPlayer = player1.getSymbol()); 
+              // Switch to the other player
+              //Needs to be function as this action must be also reset at match end
             winChecker();
           } else console.log("Can't apply playerSymbol - tile is not NULL!");
         });
