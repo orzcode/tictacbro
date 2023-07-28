@@ -1,111 +1,94 @@
-// // let GameBoard = (() => {
-// // 	let tiles = new Array(9).fill(null);
-// // 	let click = (Player, tile) => tiles[tile] = Player.symbol
-// // 	return {tiles , click};
-// // })();
-// // console.log(GameBoard.tiles);
-// // //IIFE-wrapped, AKA a module
-
-// // let player = (name, symbol) => {
-// // 		return { name, symbol };
-// // }
-// // //Factory function, since it 'returns' the needed
-// // //doesn't use "new", which is how it's a 'factory function'
-// // const player1 = player('Player 1 (X)', 'X');
-// // const player2 = player('Player 2 (O)', 'O');
-// // //
-
-// // player2.name = "joe";
-// // console.log(player2.name)
-// // //
-
-// ////////////////////////////
-// // THIS HAPPENS (1) ON FIRST RUN  (2) WHEN RESETTING GAME - e.g., gameBoard.init
-// // ------------------------------------------------------
-
-// // let tileArray = [null, null, null...]
-
-// // add eventlistener to each tileDiv#id, ONCLICK, ()=>
-// // 	if (tileArray[tileDiv#id] === null){
-// // 	tileArray[tileDiv#id] = player.Symbol
-// // 	}
-// // 	else
-// // 	do nothing (or maybe a visual 'no' clue in case of existing symbol)
-// // }
-// ////////////////////////////
-// // let GameBoard = (() => {
-// // 	let init = (() => {
-// // 		let tileArray = new Array(9).fill(null);
-// // 		tileArray.forEach(tile => {
-// // 			console.log("test");
-
-// // 			addEventListener(click, applySymbol);
-// // 			function applySymbol(player){
-// // 			if (tile === null){
-// // 				tile = player.symbol
-// // 		}
-// // 	}
-// // 	});
-// // 	})();
-// // 	return {init};
-// // })();
-// // GameBoard.init();
-
-// ///-----------///
-// const Person = (name, age) => {
-//     const getname = () => name;
-//     const getage = () => age;
-//     return { name, age, getname, getage };
-// }
-
-// const jeff = Person('jeff', 21);
-// console.log(jeff.getname());
-// jeff.name = "fuck"
-// console.log(jeff.name);
-
 //----------------------------------------------------//
 //Some of these will be global to begin with, just move them into main objects later//
 
-const Player = (name, symbol, p1, p2) => {
+// const Player = (name, symbol, p1, p2) => {
+//   const getName = () => {
+//     return `${name} (${symbol})`;
+//     //appends symbol in brackets to end of name - for user ease
+//   };
+//   const getSymbol = () => {
+//     return symbol;
+//   };
+//   //set directly, initially, by default below, but
+//   //if I want to change or 'set' to something else (eg named players)
+//   //then i'll need to make setName() too
+
+//   ///////////////////////////////////////////
+//   const switchActive = () => {
+//     symbol === p1.getSymbol()
+//       ? (symbol = p2.getSymbol())
+//       : (symbol = p1.getSymbol());
+//     //called later - this is how turns are taken
+//   };
+//   const reset = () => {
+//     symbol === p1.getSymbol();
+//     //resets active player to Player 1
+//   };
+//   ///////////////////////////////////////////
+//   //make as prototype? only of/for activeplayer?
+//   //rewrite entirely?
+
+//   return { getName, getSymbol, switchActive, reset };
+// };
+//////////////////////////////////////////////////////////
+const Player = (name, symbol) => {
   const getName = () => {
     return `${name} (${symbol})`;
-    //appends symbol in brackets to end of name - for user ease
   };
+
   const getSymbol = () => {
     return symbol;
   };
-  //set directly, initially, by default below, but
-  //if I want to change or 'set' to something else (eg named players)
-  //then i'll need to make setName() too
 
-  ///////////////////////////////////////////
-  const switchActive = () => {
+  const switchActive = (p1, p2) => {
     symbol === p1.getSymbol()
-      ? (symbol = p2.getSymbol())
-      : (symbol = p1.getSymbol());
-    //called later - this is how turns are taken
+      ? setSymbol(p2.getSymbol())
+      : setSymbol(p1.getSymbol());
   };
-  const reset = () => {
-    symbol === p1.getSymbol();
-    //resets active player to Player 1
-  };
-  ///////////////////////////////////////////
-  //make as prototype? only of/for activeplayer?
-  //rewrite entirely?
 
-  return { getName, getSymbol, switchActive, reset };
+  const reset = (p1) => {
+    setSymbol(p1.getSymbol());
+  };
+
+  const setSymbol = (newSymbol) => {
+    symbol = newSymbol;
+  };
+
+  const createActivePlayer = (p1, p2) => {
+    // Create a new object based on the Player object
+    const activePlayer = {
+      getName,
+      getSymbol,
+      switchActive: () => switchActive(p1, p2), // Bind p1 and p2 to switchActive
+      reset: () => reset(p1), // Bind p1 to reset
+    };
+
+    return activePlayer;
+  };
+
+  return { getName, getSymbol, createActivePlayer };
 };
 
+//--PROBLEM - switchActive seems to only work once! And reset wont work!
+
+/////////////////////////////////////////////////
 const GameBoard = (() => {
   const player1 = Player("Player 1", "X");
   const player2 = Player("Player 2", "O");
-  const activePlayer = Player(null, "X", player1, player2);
+  const activePlayer = player1.createActivePlayer(player1, player2);
+
+  console.log(activePlayer.getSymbol())
+  activePlayer.switchActive()
+  activePlayer.reset()
+  console.log(activePlayer.getSymbol())
+  console.log(activePlayer.getSymbol())
+  //const activePlayer = Player(null, "X", player1, player2);
   //Player 1 takes the first turn -- change this if later implementing a diceroll
 
   const init = () => {
     const tileArray = new Array(9).fill(null);
     //creates an empty array with empty (null) values
-
+    
     for (let tile = 0; tile <= 8; tile++) {
       document
         .querySelector(`#tile-${tile}`)
