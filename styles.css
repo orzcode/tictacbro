@@ -139,6 +139,10 @@ h1 {
 /*CURSOR POINTER*/
 .btn, .tile {
   cursor: pointer;
+  transition: all 0.025s ease-in-out;
+}
+.tile:active {
+  transform: scale(0.925);
 }
 /* ---------------------------------------------------- */
 /*--Modal Dialog--*/
