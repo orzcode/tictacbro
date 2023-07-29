@@ -118,6 +118,8 @@ const GameBoard = (() => {
             tileArray[subArr[2]] == player2.getSymbol())
         ) {
           activePlayer.reset();
+          //make this^part of overall reset function which includes restting array
+          //and board. Also see below during draw.
           console.log("Win state confirmed for " + tileArray[subArr[0]]);
           //Very rudimentary method, but so long as the ABOVE checks pass,
           //then surely any of the 3 tiles can be used here to determine the winner
