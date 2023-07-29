@@ -4,7 +4,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
 }
 html {
   background-color: rgb(200, 200, 200);
@@ -41,11 +40,12 @@ a {
 }
 /* ---------------------------------------------------- */
 :root {
-  /* --watermelonDark: #8d2848; */
-  --watermelonDark: #526068;
-  --watermelonLight: #f5f5f5;
-  --watermelonSkinDark: #8d6e51;
-  --watermelonSkinLight: #ff7b7b;
+  --header: #8d6e51;
+  --main: #526068;
+  --accent: #daa675c4;
+
+  --textWhite: #f5f5f5;
+  --tile: rgb(73, 73, 73);
 }
 /* ---------------------------------------------------- */
 #container {
@@ -56,8 +56,8 @@ a {
   /*This is important for flex-based bottom footer*/
 }
 header {
-  background-color: var(--watermelonSkinDark);
-  color: var(--watermelonLight);
+  background-color: var(--header);
+  color: var(--textWhite);
   border-bottom: 1px solid black;
   filter: drop-shadow(1px 1px 100px black);
   width: 100%;
@@ -78,14 +78,14 @@ h1 {
 }
 
 #main {
-	background-color: var(--watermelonDark);
-	color: var(--watermelonLight);
-	display: flex;
+  background-color: var(--main);
+  color: var(--textWhite);
+  display: flex;
   flex-direction: column;
-	flex-grow: 1;
-	width: 100%;
-	align-items: center;
-	justify-items: center;
+  flex-grow: 1;
+  width: 100%;
+  align-items: center;
+  justify-items: center;
 }
 
 #infoDisplay {
@@ -94,20 +94,19 @@ h1 {
   /*Need to fix vertical spacing here with gameboard*/
 }
 
-#gameBoard{
-	display: grid;
+#gameBoard {
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
-	/* background-color: aquamarine; */
-	width: min(75rem, auto);
-	height: min(75rem, auto);
+  width: min(75rem, auto);
+  height: min(75rem, auto);
   /* This 'min-auto' thing keeps the tiles centered when toying with Gap etc */
   gap: 1rem;
-	margin: auto;
+  margin: auto;
 }
 
 #footer {
-  background-color: var(--watermelonSkinDark);
-  color: var(--watermelonLight);
+  background-color: var(--header);
+  color: var(--textWhite);
   padding: 2rem 0;
   border-top: 1px solid black;
   width: 100%;
@@ -129,15 +128,17 @@ h1 {
   font-size: 20rem;
   border-radius: 20px;
   outline: 2px solid black;
-  background-color: rgb(73, 73, 73);
+  background-color: var(--tile);
+  color: var(--accent)
 }
 
 .tile:hover {
-  filter: brightness(200%);
+  filter: brightness(150%);
 }
 
 /*CURSOR POINTER*/
-.btn, .tile {
+.btn,
+.tile {
   cursor: pointer;
   transition: all 0.025s ease-in-out;
 }
