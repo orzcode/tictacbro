@@ -78,10 +78,11 @@ const GameBoard = (() => {
   const activePlayer = player1.createActivePlayer(player1, player2);
 
   console.log(activePlayer.getSymbol())
-  activePlayer.switchActive()
-  activePlayer.reset()
+  //activePlayer.switchActive()
+  //activePlayer.reset()
   console.log(activePlayer.getSymbol())
   console.log(activePlayer.getSymbol())
+  
   //const activePlayer = Player(null, "X", player1, player2);
   //Player 1 takes the first turn -- change this if later implementing a diceroll
 
