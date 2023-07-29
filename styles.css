@@ -91,6 +91,7 @@ h1 {
 #infoDisplay {
   display: block;
   margin-top: auto;
+  background-color: rgb(36, 65, 55);
   /*Need to fix vertical spacing here with gameboard*/
 }
 
@@ -128,19 +129,13 @@ h1 {
   font-size: 20rem;
   border-radius: 20px;
   outline: 2px solid black;
+  cursor: pointer;
+  transition: all 0.025s ease-in-out;
   background-color: var(--tile);
   color: var(--accent)
 }
-
 .tile:hover {
   filter: brightness(150%);
-}
-
-/*CURSOR POINTER*/
-.btn,
-.tile {
-  cursor: pointer;
-  transition: all 0.025s ease-in-out;
 }
 .tile:active {
   transform: scale(0.925);
