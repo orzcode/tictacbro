@@ -170,7 +170,7 @@ const GameControl = (() => {
   const player1 = Player("Player 1", "X");
   const player2 = Player("Player 2", "O");
   const activePlayer = player1.createActivePlayer(player1, player2);
-
+//need to move this stuff into Player?
   console.log(activePlayer.getSymbol());
   //activePlayer.switchActive()
   //activePlayer.reset()
