@@ -1,36 +1,5 @@
 //----------------------------------------------------//
 //Some of these will be global to begin with, just move them into main objects later//
-
-// const Player = (name, symbol, p1, p2) => {
-//   const getName = () => {
-//     return `${name} (${symbol})`;
-//     //appends symbol in brackets to end of name - for user ease
-//   };
-//   const getSymbol = () => {
-//     return symbol;
-//   };
-//   //set directly, initially, by default below, but
-//   //if I want to change or 'set' to something else (eg named players)
-//   //then i'll need to make setName() too
-
-//   ///////////////////////////////////////////
-//   const switchActive = () => {
-//     symbol === p1.getSymbol()
-//       ? (symbol = p2.getSymbol())
-//       : (symbol = p1.getSymbol());
-//     //called later - this is how turns are taken
-//   };
-//   const reset = () => {
-//     symbol === p1.getSymbol();
-//     //resets active player to Player 1
-//   };
-//   ///////////////////////////////////////////
-//   //make as prototype? only of/for activeplayer?
-//   //rewrite entirely?
-
-//   return { getName, getSymbol, switchActive, reset };
-// };
-//////////////////////////////////////////////////////////
 const Player = (name, symbol) => {
   const getName = () => {
     return `${name} (${symbol})`;
@@ -42,8 +11,8 @@ const Player = (name, symbol) => {
 
   const switchActive = (p1, p2) => {
     symbol === p1.getSymbol()
-      ? setSymbol(p2.getSymbol())
-      : setSymbol(p1.getSymbol());
+      ? this.setSymbol(p2.getSymbol())
+      : this.setSymbol(p1.getSymbol());
   };
 
   const reset = (p1) => {
@@ -73,21 +42,21 @@ const Player = (name, symbol) => {
 
 /////////////////////////////////////////////////
 const GameBoard = (() => {
-  // const player1 = Player("Player 1", "X");
-  // const player2 = Player("Player 2", "O");
-  // const activePlayer = player1.createActivePlayer(player1, player2);
+  const player1 = Player("Player 1", "X");
+  const player2 = Player("Player 2", "O");
+  const activePlayer = player1.createActivePlayer(player1, player2);
+//need to move this stuff into Player?
+  console.log(activePlayer.getSymbol());
+  //activePlayer.switchActive()
+  //activePlayer.reset()
+  console.log(activePlayer.getSymbol());
+  console.log(activePlayer.getSymbol());
 
-  // console.log(activePlayer.getSymbol());
-  // //activePlayer.switchActive()
-  // //activePlayer.reset()
-  // console.log(activePlayer.getSymbol());
-  // console.log(activePlayer.getSymbol());
-
-  // //const activePlayer = Player(null, "X", player1, player2);
-  // //Player 1 takes the first turn -- change this if later implementing a diceroll
+  //const activePlayer = Player(null, "X", player1, player2);
+  //Player 1 takes the first turn -- change this if later implementing a diceroll
 
   const tileArrayInit = () => {
-    const activePlayer = GameControl.activePlayer;
+    //const activePlayer = GameControl.activePlayer;
     const tileArray = new Array(9).fill(null);
     //creates an empty array with empty (null) values
 
@@ -101,42 +70,42 @@ const GameBoard = (() => {
             tileArray[tile] = activePlayer.getSymbol(); // Update tileArray with player's symbol
             activePlayer.switchActive();
             // Switch to the other player
-            GameControl.winChecker();
+            winChecker();
           } else console.log("Can't apply playerSymbol - tile is not NULL!");
         });
     }
     //through 0 to 8 (1 to 9), appends onclick to respective html tile ID#,
     //if respective tileArray[tile] value is null
-return tileArray
-    // const winChecker = () => {
-    //   for (const subArr of winStates) {
-    //     if (
-    //       (tileArray[subArr[0]] == player1.getSymbol() &&
-    //         tileArray[subArr[1]] == player1.getSymbol() &&
-    //         tileArray[subArr[2]] == player1.getSymbol()) ||
-    //       (tileArray[subArr[0]] == player2.getSymbol() &&
-    //         tileArray[subArr[1]] == player2.getSymbol() &&
-    //         tileArray[subArr[2]] == player2.getSymbol())
-    //     ) {
-    //       activePlayer.reset();
-    //       //make this^part of overall reset function which includes restting array
-    //       //and board. Also see below during draw.
-    //       console.log("Win state confirmed for " + tileArray[subArr[0]]);
-    //       //Very rudimentary method, but so long as the ABOVE checks pass,
-    //       //then surely any of the 3 tiles can be used here to determine the winner
-    //       return;
-    //     } else {
-    //       //No win - continuing to loop through win conditions;
-    //       continue;
-    //     }
-    //   }
+//return tileArray
+    const winChecker = () => {
+      for (const subArr of winStates) {
+        if (
+          (tileArray[subArr[0]] == player1.getSymbol() &&
+            tileArray[subArr[1]] == player1.getSymbol() &&
+            tileArray[subArr[2]] == player1.getSymbol()) ||
+          (tileArray[subArr[0]] == player2.getSymbol() &&
+            tileArray[subArr[1]] == player2.getSymbol() &&
+            tileArray[subArr[2]] == player2.getSymbol())
+        ) {
+          activePlayer.reset();
+          //make this^part of overall reset function which includes restting array
+          //and board. Also see below during draw.
+          console.log("Win state confirmed for " + tileArray[subArr[0]]);
+          //Very rudimentary method, but so long as the ABOVE checks pass,
+          //then surely any of the 3 tiles can be used here to determine the winner
+          return;
+        } else {
+          //No win - continuing to loop through win conditions;
+          continue;
+        }
+      }
 
-    //   //check if board is full:
-    //   if (tileArray.every((tile) => tile !== null)) {
-    //     activePlayer.reset();
-    //     console.log("Board is full - stalemate");
-    //   }
-    // };
+      //check if board is full:
+      if (tileArray.every((tile) => tile !== null)) {
+        activePlayer.reset();
+        console.log("Board is full - stalemate");
+      }
+    };
   };
 
   const winStates = () => {
@@ -166,52 +135,52 @@ GameBoard.tileArrayInit();
 
 
 
-const GameControl = (() => {
-  const player1 = Player("Player 1", "X");
-  const player2 = Player("Player 2", "O");
-  const activePlayer = player1.createActivePlayer(player1, player2);
-//need to move this stuff into Player?
-  console.log(activePlayer.getSymbol());
-  //activePlayer.switchActive()
-  //activePlayer.reset()
-  console.log(activePlayer.getSymbol());
-  console.log(activePlayer.getSymbol());
+// const GameControl = (() => {
+//   const player1 = Player("Player 1", "X");
+//   const player2 = Player("Player 2", "O");
+//   const activePlayer = player1.createActivePlayer(player1, player2);
+// //need to move this stuff into Player?
+//   console.log(activePlayer.getSymbol());
+//   //activePlayer.switchActive()
+//   //activePlayer.reset()
+//   console.log(activePlayer.getSymbol());
+//   console.log(activePlayer.getSymbol());
 
-  //const activePlayer = Player(null, "X", player1, player2);
-  //Player 1 takes the first turn -- change this if later implementing a diceroll
+//   //const activePlayer = Player(null, "X", player1, player2);
+//   //Player 1 takes the first turn -- change this if later implementing a diceroll
 
 
-  const winStates = GameBoard.winStates();
-  const tileArray = GameBoard.tileArrayInit();
+//   const winStates = GameBoard.winStates();
+//   const tileArray = GameBoard.tileArrayInit();
 
-  const winChecker = () => {
-    for (const subArr of winStates) {
-      if (
-        (tileArray[subArr[0]] == player1.getSymbol() &&
-          tileArray[subArr[1]] == player1.getSymbol() &&
-          tileArray[subArr[2]] == player1.getSymbol()) ||
-        (tileArray[subArr[0]] == player2.getSymbol() &&
-          tileArray[subArr[1]] == player2.getSymbol() &&
-          tileArray[subArr[2]] == player2.getSymbol())
-      ) {
-        activePlayer.reset();
-        //make this^part of overall reset function which includes restting array
-        //and board. Also see below during draw.
-        console.log("Win state confirmed for " + tileArray[subArr[0]]);
-        //Very rudimentary method, but so long as the ABOVE checks pass,
-        //then surely any of the 3 tiles can be used here to determine the winner
-        return;
-      } else {
-        //No win - continuing to loop through win conditions;
-        continue;
-      }
-    }
+//   const winChecker = () => {
+//     for (const subArr of winStates) {
+//       if (
+//         (tileArray[subArr[0]] == player1.getSymbol() &&
+//           tileArray[subArr[1]] == player1.getSymbol() &&
+//           tileArray[subArr[2]] == player1.getSymbol()) ||
+//         (tileArray[subArr[0]] == player2.getSymbol() &&
+//           tileArray[subArr[1]] == player2.getSymbol() &&
+//           tileArray[subArr[2]] == player2.getSymbol())
+//       ) {
+//         activePlayer.reset();
+//         //make this^part of overall reset function which includes restting array
+//         //and board. Also see below during draw.
+//         console.log("Win state confirmed for " + tileArray[subArr[0]]);
+//         //Very rudimentary method, but so long as the ABOVE checks pass,
+//         //then surely any of the 3 tiles can be used here to determine the winner
+//         return;
+//       } else {
+//         //No win - continuing to loop through win conditions;
+//         continue;
+//       }
+//     }
 
-    //check if board is full:
-    if (tileArray.every((tile) => tile !== null)) {
-      activePlayer.reset();
-      console.log("Board is full - stalemate");
-    }
-  };
-  return { winChecker, activePlayer };
-})();
+//     //check if board is full:
+//     if (tileArray.every((tile) => tile !== null)) {
+//       activePlayer.reset();
+//       console.log("Board is full - stalemate");
+//     }
+//   };
+//   return { winChecker, activePlayer };
+// })();

@@ -139,9 +139,9 @@ form {
 #gameBoard {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  width: min(75rem, auto);
-  height: min(75rem, auto);
-  /* This 'min-auto' thing keeps the tiles centered when toying with Gap etc */
+  max-width: 75rem;
+  width: 90%;
+  /* 'min-auto' keeps the tiles centered when toying with Gap etc */
   gap: 1rem;
   margin: auto;
 }
@@ -162,12 +162,12 @@ form {
 }
 
 .tile {
-  width: 25rem;
-  height: 25rem;
+  width: clamp(10rem, 25vw, 25rem);
+  min-height: clamp(10rem, 25vw, 25rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20rem;
+  font-size: clamp(5rem, 10vw, 20rem);
   border-radius: 20px;
   outline: 2px solid black;
   cursor: pointer;
