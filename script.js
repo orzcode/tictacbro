@@ -75,7 +75,8 @@ const GameBoard = (() => {
     for (let tile = 0; tile <= 8; tile++) {
       document
         .querySelector(`#tile-${tile}`)
-        .addEventListener("click", function () {
+        .addEventListener("click", tileClicker);
+        function tileClicker(){
           if (tileArray[tile] === null) {
             document.querySelector(`#tile-${tile}`).innerHTML =
             PlayersModule.activePlayer.getSymbol();
@@ -84,7 +85,7 @@ const GameBoard = (() => {
             // Switch to the other player
             winChecker();
           } else console.log("Can't apply playerSymbol - tile is not NULL!");
-        });
+        }
     }
     //through 0 to 8 (1 to 9), appends onclick to respective html tile ID#,
     //if respective tileArray[tile] value is null
@@ -170,7 +171,14 @@ DisplayControl = (() => {
           "Draw! Nobody wins";
         break;
     }
+
     //remove eventlistener here - need to use named 'function' for it
+    for (let tile = 0; tile <= 8; tile++) {
+      document
+        .querySelectorAll(".tile")
+        .removeEventListener("click", GameBoard.tileArrayInit.tileClicker);
+    }
+    
   };
   return { results };
 })();
