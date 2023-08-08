@@ -101,31 +101,32 @@ const GameBoard = (() => {
         (tileArray[subArr[0]] == PlayersModule.player2.getSymbol() &&
           tileArray[subArr[1]] == PlayersModule.player2.getSymbol() &&
           tileArray[subArr[2]] == PlayersModule.player2.getSymbol())
+        //checks if all 3 index positions of each set of win states
+        //has 'the same' player symbol in it.
       ) {
+        DisplayControl.results(tileArray[subArr[0]]);
+        //send the symbol of the winner to Results function
 
         //-----------------//
         PlayersModule.resetPlayers();
-        console.log("Win state confirmed for " + tileArray[subArr[0]]);
         //-----------------//
         //replace all this^ with (1) stalemate info display, (2) disable clicks
 
         return;
-      } 
-
-     //Checking STALEMATE state
-      else if (tileArray.every((tile) => tile !== null)) {
-
-        //-----------------//
-        PlayersModule.resetPlayers();
-        console.log("Board is full - stalemate");
-        //-----------------//
-        //replace all this^ with (1) stalemate info display, (2) disable clicks
-  
-      }      
-      else {
+      } else {
         //No win - continuing to loop through win conditions;
         continue;
       }
+    }
+    //Checking STALEMATE state
+    if (tileArray.every((tile) => tile !== null)) {
+      DisplayControl.results(null);
+      //send 'null' to Results function, interpreted as a Draw
+
+      //-----------------//
+      PlayersModule.resetPlayers();
+      //-----------------//
+      //replace all this^ with (1) stalemate info display, (2) disable clicks
     }
   };
 
@@ -153,3 +154,20 @@ const GameBoard = (() => {
 })();
 GameBoard.tileArrayInit();
 /////////////////////////////////////////////////
+DisplayControl = (() => {
+  const results = (playerSymbol) => {
+    switch (playerSymbol) {
+      case PlayersModule.player1.getSymbol():
+        console.log("Player 1 wins, cool function works, smd");
+        break;
+      case PlayersModule.player2.getSymbol():
+        console.log("Player 2 wins, cool function works, smd");
+        break;
+      case null:
+        console.log("Straight stalemate son, TF u gon do");
+        break;
+    }
+    //remove eventlistener here - need to use named 'function' for it
+  };
+  return { results };
+})();
