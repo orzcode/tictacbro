@@ -78,7 +78,7 @@ const GameBoard = (() => {
         .addEventListener("click", function () {
           if (tileArray[tile] === null) {
             document.querySelector(`#tile-${tile}`).innerHTML =
-              PlayersModule.activePlayer.getSymbol();
+            PlayersModule.activePlayer.getSymbol();
             tileArray[tile] = PlayersModule.activePlayer.getSymbol(); // Update tileArray with player's symbol
             PlayersModule.activePlayer.switchActive();
             // Switch to the other player
@@ -158,13 +158,16 @@ DisplayControl = (() => {
   const results = (playerSymbol) => {
     switch (playerSymbol) {
       case PlayersModule.player1.getSymbol():
-        console.log("Player 1 wins, cool function works, smd");
+        document.querySelector("#infoDisplay h2").innerHTML =
+          PlayersModule.player1.getName() + " wins!";
         break;
       case PlayersModule.player2.getSymbol():
-        console.log("Player 2 wins, cool function works, smd");
+        document.querySelector("#infoDisplay h2").innerHTML =
+          PlayersModule.player2.getName() + " wins!";
         break;
       case null:
-        console.log("Straight stalemate son, TF u gon do");
+        document.querySelector("#infoDisplay h2").innerHTML =
+          "Draw! Nobody wins";
         break;
     }
     //remove eventlistener here - need to use named 'function' for it
