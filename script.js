@@ -55,6 +55,42 @@ const PlayersModule = (() => {
 })();
 
 /////////////////////////////////////////////////
+
+DisplayControl = (() => {
+  const pointerEvents = (mode) =>{
+    document.querySelectorAll(".tile").forEach((tileElement) => {
+      if(mode==="reset"){
+      tileElement.style.pointerEvents = "auto"
+      }else
+      if(mode==="disable"){
+      tileElement.style.pointerEvents = "none"
+      }
+    });
+  }
+
+  const results = (playerSymbol) => {
+    switch (playerSymbol) {
+      case PlayersModule.player1.getSymbol():
+        document.querySelector("#infoDisplay h2").innerHTML =
+          PlayersModule.player1.getName() + " wins!";
+        break;
+      case PlayersModule.player2.getSymbol():
+        document.querySelector("#infoDisplay h2").innerHTML =
+          PlayersModule.player2.getName() + " wins!";
+        break;
+      case null:
+        document.querySelector("#infoDisplay h2").innerHTML =
+          "Draw! Nobody wins";
+        break;
+    }
+    pointerEvents("disable")
+    //removes pointerEvent (click)ability
+  };
+  return { results, pointerEvents };
+})();
+
+/////////////////////////////////////////////////
+
 const GameBoard = (() => {
   const tileArray = new Array(9).fill(null);
   //creates an empty array with empty (null) values
@@ -68,27 +104,40 @@ const GameBoard = (() => {
     //resets visual gameboard HTML
     PlayersModule.resetPlayers();
     //resets player names, and Active Player...somehow
+
+    DisplayControl.pointerEvents("reset");
+    //restores pointerEvent (click)ability
   };
 
   const tileArrayInit = () => {
     //ONCLICK APPLICATION//
     for (let tile = 0; tile <= 8; tile++) {
+      //through 0 to 8 (#1 to #9), appends click listener to respective html tile ID#,
+      //if respective tileArray[tile] value is null.
+      //needs individual tile precision which is why we can't use forEach.
       document
         .querySelector(`#tile-${tile}`)
-        .addEventListener("click", tileClicker);
-        function tileClicker(){
+        .addEventListener("click", tileClicker(tile));
+
+      function tileClicker(tile) {
+        return function () {
           if (tileArray[tile] === null) {
             document.querySelector(`#tile-${tile}`).innerHTML =
-            PlayersModule.activePlayer.getSymbol();
+              PlayersModule.activePlayer.getSymbol();
             tileArray[tile] = PlayersModule.activePlayer.getSymbol(); // Update tileArray with player's symbol
             PlayersModule.activePlayer.switchActive();
             // Switch to the other player
             winChecker();
           } else console.log("Can't apply playerSymbol - tile is not NULL!");
-        }
+        };
+      }
     }
-    //through 0 to 8 (1 to 9), appends onclick to respective html tile ID#,
-    //if respective tileArray[tile] value is null
+
+    // function removeClick(){
+    //   document
+    //     .querySelector(`#tile-${tile}`)
+    //     .removeEventListener("click", tileClicker(tile));
+    // }return removeClick
   };
   const winChecker = () => {
     //Checks win state ELSE stalemate state
@@ -155,30 +204,3 @@ const GameBoard = (() => {
 })();
 GameBoard.tileArrayInit();
 /////////////////////////////////////////////////
-DisplayControl = (() => {
-  const results = (playerSymbol) => {
-    switch (playerSymbol) {
-      case PlayersModule.player1.getSymbol():
-        document.querySelector("#infoDisplay h2").innerHTML =
-          PlayersModule.player1.getName() + " wins!";
-        break;
-      case PlayersModule.player2.getSymbol():
-        document.querySelector("#infoDisplay h2").innerHTML =
-          PlayersModule.player2.getName() + " wins!";
-        break;
-      case null:
-        document.querySelector("#infoDisplay h2").innerHTML =
-          "Draw! Nobody wins";
-        break;
-    }
-
-    //remove eventlistener here - need to use named 'function' for it
-    for (let tile = 0; tile <= 8; tile++) {
-      document
-        .querySelectorAll(".tile")
-        .removeEventListener("click", GameBoard.tileArrayInit.tileClicker);
-    }
-    
-  };
-  return { results };
-})();
