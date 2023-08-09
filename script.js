@@ -30,12 +30,9 @@ const PlayersModule = (() => {
     player1.setSymbol("X");
     player2.setName("Player 2");
     player2.setSymbol("O");
+    activePlayer = player1;
   };
-  //Some WHACK behavior with this. It resets activePlayer too...somehow.
-
-  // const reset = () => {
-  //   activePlayer = player1;
-  // };
+  //resets all players AND activePlayer
 
   const switchActive = () => {
     activePlayer = activePlayer === player1 ? player2 : player1;
@@ -48,15 +45,20 @@ const PlayersModule = (() => {
       getName: () => activePlayer.getName(),
       getSymbol: () => activePlayer.getSymbol(),
       switchActive,
-      //reset,
     },
     resetPlayers,
   };
 })();
 
+
+
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
 /////////////////////////////////////////////////
 
-DisplayControl = (() => {
+
+
+const DisplayControl = (() => {
   const pointerEvents = (mode) =>{
     document.querySelectorAll(".tile").forEach((tileElement) => {
       if(mode==="reset"){
@@ -68,15 +70,24 @@ DisplayControl = (() => {
     });
   }
 
+  const infoFeed = (() => {
+    const reset = function () {
+      document.querySelector("#infoDisplay h2").innerHTML = "Click a tile to begin!";
+    };
+    const winMsg = function (player) {
+      document.querySelector("#infoDisplay h2").innerHTML = player + " wins!";
+    };
+    return { reset, winMsg };
+  })();
+
+
   const results = (playerSymbol) => {
     switch (playerSymbol) {
       case PlayersModule.player1.getSymbol():
-        document.querySelector("#infoDisplay h2").innerHTML =
-          PlayersModule.player1.getName() + " wins!";
+        infoFeed.winMsg(PlayersModule.player1.getName())
         break;
       case PlayersModule.player2.getSymbol():
-        document.querySelector("#infoDisplay h2").innerHTML =
-          PlayersModule.player2.getName() + " wins!";
+        infoFeed.winMsg(PlayersModule.player2.getName())
         break;
       case null:
         document.querySelector("#infoDisplay h2").innerHTML =
@@ -86,30 +97,22 @@ DisplayControl = (() => {
     pointerEvents("disable")
     //removes pointerEvent (click)ability
   };
-  return { results, pointerEvents };
+  return { results, pointerEvents, infoFeed };
 })();
 
+
+
 /////////////////////////////////////////////////
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+
+
 
 const GameBoard = (() => {
   const tileArray = new Array(9).fill(null);
   //creates an empty array with empty (null) values
 
-  const reset = () => {
-    tileArray.fill(null);
-    //resets tileArray
-    for (const tileElement of document.querySelectorAll(".tile")) {
-      tileElement.innerHTML = "";
-    }
-    //resets visual gameboard HTML
-    PlayersModule.resetPlayers();
-    //resets player names, and Active Player...somehow
-
-    DisplayControl.pointerEvents("reset");
-    //restores pointerEvent (click)ability
-  };
-
-  const tileArrayInit = () => {
+  const tileArrayInit = (() => {
     //ONCLICK APPLICATION//
     for (let tile = 0; tile <= 8; tile++) {
       //through 0 to 8 (#1 to #9), appends click listener to respective html tile ID#,
@@ -132,13 +135,25 @@ const GameBoard = (() => {
         };
       }
     }
+  })();
 
-    // function removeClick(){
-    //   document
-    //     .querySelector(`#tile-${tile}`)
-    //     .removeEventListener("click", tileClicker(tile));
-    // }return removeClick
+  const reset = () => {
+    tileArray.fill(null);
+    //resets tileArray
+    for (const tileElement of document.querySelectorAll(".tile")) {
+      tileElement.innerHTML = "";
+    }
+    //resets visual gameboard HTML
+    PlayersModule.resetPlayers();
+    //resets player names, and Active Player
+
+    DisplayControl.pointerEvents("reset");
+    //restores pointerEvent (click)ability
+
+    DisplayControl.infoFeed.reset()
+    //resets info Display
   };
+
   const winChecker = () => {
     //Checks win state ELSE stalemate state
 
@@ -156,30 +171,19 @@ const GameBoard = (() => {
       ) {
         DisplayControl.results(tileArray[subArr[0]]);
         //send the symbol of the winner to Results function
-
-        //-----------------//
-        PlayersModule.resetPlayers();
-        //-----------------//
-        //replace all this^ with (1) stalemate info display, (2) disable clicks
-
         return;
       } else {
         //No win - continuing to loop through win conditions;
         continue;
       }
     }
+
     //Checking STALEMATE state
     if (tileArray.every((tile) => tile !== null)) {
       DisplayControl.results(null);
       //send 'null' to Results function, interpreted as a Draw
-
-      //-----------------//
-      PlayersModule.resetPlayers();
-      //-----------------//
-      //replace all this^ with (1) stalemate info display, (2) disable clicks
     }
   };
-
   /////////////////////////////////////////////////
   const winStates = [
     // Horizontal win states
@@ -202,5 +206,13 @@ const GameBoard = (() => {
   //pass this the player.getSymbol() method (maybe), but in either case, keep the checker function in
   //here and also keep the winstates in here, so they dont leak but can still be checked.
 })();
-GameBoard.tileArrayInit();
+//GameBoard.tileArrayInit();
+
+
+
 /////////////////////////////////////////////////
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+
+
+
