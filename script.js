@@ -201,7 +201,7 @@ const GameBoard = (() => {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 
-const Manager = (() => {
+const Startflow = (() => {
   const nameEntry = () => {
     PlayersModule.player1.setName(document.querySelector("#player1Name").value)
     PlayersModule.player2.setName(document.querySelector("#player2Name").value)
