@@ -1,5 +1,4 @@
 //----------------------------------------------------//
-//Some of these will be global to begin with, just move them into main objects later//
 const PlayersModule = (() => {
   const createPlayer = (name, symbol) => {
     return {
@@ -50,29 +49,25 @@ const PlayersModule = (() => {
   };
 })();
 
-
-
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
-
-
 
 const DisplayControl = (() => {
-  const pointerEvents = (mode) =>{
+  const pointerEvents = (mode) => {
     document.querySelectorAll(".tile").forEach((tileElement) => {
-      if(mode==="reset"){
-      tileElement.style.pointerEvents = "auto"
-      }else
-      if(mode==="disable"){
-      tileElement.style.pointerEvents = "none"
+      if (mode === "reset") {
+        tileElement.style.pointerEvents = "auto";
+      } else if (mode === "disable") {
+        tileElement.style.pointerEvents = "none";
       }
     });
-  }
+  };
 
   const infoFeed = (() => {
     const reset = function () {
-      document.querySelector("#infoDisplay h2").innerHTML = "Click a tile to begin!";
+      document.querySelector("#infoDisplay h2").innerHTML =
+        "Click a tile to begin!";
     };
     const winMsg = function (player) {
       document.querySelector("#infoDisplay h2").innerHTML = player + " wins!";
@@ -80,33 +75,28 @@ const DisplayControl = (() => {
     return { reset, winMsg };
   })();
 
-
   const results = (playerSymbol) => {
     switch (playerSymbol) {
       case PlayersModule.player1.getSymbol():
-        infoFeed.winMsg(PlayersModule.player1.getName())
+        infoFeed.winMsg(PlayersModule.player1.getName());
         break;
       case PlayersModule.player2.getSymbol():
-        infoFeed.winMsg(PlayersModule.player2.getName())
+        infoFeed.winMsg(PlayersModule.player2.getName());
         break;
       case null:
         document.querySelector("#infoDisplay h2").innerHTML =
           "Draw! Nobody wins";
         break;
     }
-    pointerEvents("disable")
+    pointerEvents("disable");
     //removes pointerEvent (click)ability
   };
   return { results, pointerEvents, infoFeed };
 })();
 
-
-
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
-
-
 
 const GameBoard = (() => {
   const tileArray = new Array(9).fill(null);
@@ -150,7 +140,7 @@ const GameBoard = (() => {
     DisplayControl.pointerEvents("reset");
     //restores pointerEvent (click)ability
 
-    DisplayControl.infoFeed.reset()
+    DisplayControl.infoFeed.reset();
     //resets info Display
   };
 
@@ -206,13 +196,20 @@ const GameBoard = (() => {
   //pass this the player.getSymbol() method (maybe), but in either case, keep the checker function in
   //here and also keep the winstates in here, so they dont leak but can still be checked.
 })();
-//GameBoard.tileArrayInit();
-
-
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 
+const Manager = (() => {
+  const nameEntry = () => {
+    PlayersModule.player1.setName(document.querySelector("#player1Name").value)
+    PlayersModule.player2.setName(document.querySelector("#player2Name").value)
+    document.querySelector("#player1Name").value = ''
+    document.querySelector("#player2Name").value = ''
+  }
+  //simply takes the values present in text boxes and makes them player names
+  //resetting is handled independently by the Reset function from PlayersModule
 
-
+  return { nameEntry }
+})();

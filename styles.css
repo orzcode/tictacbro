@@ -100,7 +100,7 @@ header {
 }
 h1 {
   filter: drop-shadow(1px 1px 1px black);
-  font-size: clamp(3.3rem, 5vw, 4.5rem);
+  font-size: clamp(3.8rem, 5vw, 5.4rem);
 }
 
 #main {
@@ -123,12 +123,13 @@ h1 {
   align-items: center;
   justify-self: start;
   flex-grow: 0;
-  /* background-color: rgb(36, 65, 55); */
+  background-color: rgb(36, 65, 55);
   gap: 1rem;
   padding: 1rem;
 }
 h2 {
   text-align: center;
+  font-size: clamp(2.8rem, 6vw, 3.8rem);
 }
 form {
   display: flex;
@@ -193,6 +194,7 @@ form {
 /* ---------------------------------------------------- */
 .nameEntry {
   font-size: min(calc(1.4rem + 1.4vw), 2.4rem);
+  max-width: 25rem;
   border: 2px solid black;
   border-radius: 0.5rem;
   text-align: center;
