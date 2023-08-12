@@ -4,6 +4,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  /*apparently, shouldn't use this*/
 }
 html {
   background-color: rgb(200, 200, 200);
