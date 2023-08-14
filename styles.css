@@ -160,11 +160,15 @@ form {
   line-height: 1.5;
 }
 
-#startButtonsDiv{
+/* #startScreen *{
+  border: 1px solid blue;
+} */
+
+#startButtonsDiv {
   display: flex;
   flex-direction: column;
-gap: 1rem;
-margin: 1rem;
+  gap: 1rem;
+  margin: 1rem;
 }
 
 #gameBoard {

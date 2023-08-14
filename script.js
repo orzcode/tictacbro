@@ -207,9 +207,16 @@ const Startflow = (() => {
     PlayersModule.player2.setName(document.querySelector("#player2Name").value)
     document.querySelector("#player1Name").value = ''
     document.querySelector("#player2Name").value = ''
+    
   }
   //simply takes the values present in text boxes and makes them player names
   //resetting is handled independently by the Reset function from PlayersModule
 
-  return { nameEntry }
+  const testSubmit = () => {
+    console.log("fuck")
+
+  }
+
+
+  return { nameEntry, testSubmit }
 })();

@@ -22,11 +22,13 @@
 
 			</div>
 			<div id="startScreen">
-				<h2>Welcome to Tic Tac, bro.<br>Enter your name or just start:</h2>
-				<form>
+				<h2>Welcome, bros</h2>
+				<form id="names" name="names" onsubmit="Startflow.testSubmit();return false" required>
+					<label for="player1Name" hidden>Player 1 Name:</label>
 					<input
 					  type="text"
 					  id="player1Name"
+					  name="player1Name"
 					  class="nameEntry"
 					  minlength="2"
 					  maxlength="14"
@@ -34,6 +36,7 @@
 					  title="Player 1 - Enter Name"
 					  required
 					/>
+					<label for="player2Name" hidden>Player 2 Name:</label>
 					<input
 					type="text"
 					id="player2Name"
@@ -46,8 +49,8 @@
 				  />
 			  </form>
 			  <div id="startButtonsDiv">
-				<button class="btnShadow" onclick="GameBoard.reset()">Confirm Names</button>
-				<button class="btnShadow" onclick="GameBoard.reset()">fuck names</button>
+				<button class="btnShadow" type="submit" form="names">Confirm Names</button>
+				<button class="btnShadow" onclick="Startflow.testSubmit()">fuck names</button>
 			  </div>
 			</div>
 			<div id="gameBoard">
