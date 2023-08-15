@@ -142,6 +142,10 @@ const GameBoard = (() => {
 
     DisplayControl.infoFeed.reset();
     //resets info Display
+
+    document.querySelector("#player1Name").value = ''
+    document.querySelector("#player2Name").value = ''
+    //resets Dialog box names
   };
 
   const winChecker = () => {
@@ -205,11 +209,14 @@ const Startflow = (() => {
   const nameEntry = () => {
     PlayersModule.player1.setName(document.querySelector("#player1Name").value)
     PlayersModule.player2.setName(document.querySelector("#player2Name").value)
-    document.querySelector("#player1Name").value = ''
-    document.querySelector("#player2Name").value = ''
+
+    document.querySelector('#gameBoard').style.display = "grid";
+    document.querySelector('#infoDisplay').style.display = "flex";
+    //Dialog closes automatically by using Dialog
+    //PROBLEM! GRID SHOWS EVEN WHEN FIELDS INCOMPLETE
     
   }
-  //simply takes the values present in text boxes and makes them player names
+  //takes the values present in text boxes and makes them player names
   //resetting is handled independently by the Reset function from PlayersModule
 
   const testSubmit = () => {
