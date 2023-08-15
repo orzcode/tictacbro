@@ -144,32 +144,31 @@ form {
   row-gap: 2rem;
 }
 
+/*-  These two are separate due to 'dialog' method needing its own container -*/
 #startScreen {
+  /*- This is the div inside -*/
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  padding: 2rem 0;
-  
+  padding: 2rem 0;  
   height: 100%;
   width: 100%;
-
   line-height: 1.5;
 }
-
 dialog {
   height: clamp(30rem, 75vw, 75rem);
   width: clamp(30rem, 75vw, 75rem);
-  margin: 4rem;
+  margin: auto;
   border: 2px solid black;
   background-color: var(--header);
   box-shadow: 5px 5px 20px 0px black;
   border-radius: 15px;
+  color: var(--textWhite);
+  /*- for some reason textcolor doesn't 'take' with dialog -*/
 }
+/*-  These two are separate due to 'dialog' method needing its own container -*/
 
-/* #startScreen *{
-  border: 1px solid blue;
-} */
 
 #startButtonsDiv {
   display: flex;
