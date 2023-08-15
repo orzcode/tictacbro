@@ -21,9 +21,9 @@
 				<h2>Click a tile to begin!</h2>
 
 			</div>
-			<div id="startScreen">
+			<dialog id="startScreen" open>
 				<h2>Welcome, bros</h2>
-				<form id="names" name="names" onsubmit="Startflow.testSubmit();return false" required>
+				<form id="names" method="dialog" name="names"  required>
 					<label for="player1Name" hidden>Player 1 Name:</label>
 					<input
 					  type="text"
@@ -49,10 +49,10 @@
 				  />
 			  </form>
 			  <div id="startButtonsDiv">
-				<button class="btnShadow" type="submit" form="names">Confirm Names</button>
+				<button class="btnShadow" type="submit" onclick="console.log('sdfsdf')" form="names">Confirm Names</button>
 				<button class="btnShadow" onclick="Startflow.testSubmit()">fuck names</button>
 			  </div>
-			</div>
+			</dialog>
 			<div id="gameBoard">
 				<div id="tile-0" class="tile"></div>
 				<div id="tile-1" class="tile"></div>
