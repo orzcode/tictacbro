@@ -220,6 +220,9 @@ const Startflow = (() => {
     //ultimately, this is needed unfortunately despite using method=dialog
     document.querySelector("#gameBoard").style.display = "grid";
     document.querySelector("#infoDisplay").style.display = "flex";
+
+    document.querySelector("#infoDisplay h2").prepend(PlayersModule.player1.getName() + ", click a tile to begin!");
+    //puts P1's name in InfoDisplay and tells them to go first
   };
 
   return { confirmNames, showBoard };
