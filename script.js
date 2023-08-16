@@ -71,7 +71,7 @@ const DisplayControl = (() => {
     };
     const whosTurn = function () {
       document.querySelector("#infoDisplay h2").innerHTML =
-      PlayersModule.activePlayer.getName() + ", click a tile!";
+      PlayersModule.activePlayer.getName() + ", your go bro";
     }
     const winMsg = function (player) {
       document.querySelector("#infoDisplay h2").innerHTML = player + " wins!";
@@ -180,6 +180,8 @@ const GameBoard = (() => {
     if (tileArray.every((tile) => tile !== null)) {
       DisplayControl.results(null);
       //send 'null' to Results function, interpreted as a Draw
+    } else {
+      DisplayControl.infoFeed.whosTurn();
     }
   };
   /////////////////////////////////////////////////
