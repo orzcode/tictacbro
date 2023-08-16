@@ -207,15 +207,12 @@ const GameBoard = (() => {
 
 const Startflow = (() => {
   const nameEntry = () => {
-    document.querySelector('form').checkValidity();
-    
     PlayersModule.player1.setName(document.querySelector("#player1Name").value)
     PlayersModule.player2.setName(document.querySelector("#player2Name").value)
 
     document.querySelector('#gameBoard').style.display = "grid";
     document.querySelector('#infoDisplay').style.display = "flex";
     //Dialog closes automatically by using Dialog
-    //PROBLEM! GRID SHOWS EVEN WHEN FIELDS INCOMPLETE
     
   }
   //takes the values present in text boxes and makes them player names
