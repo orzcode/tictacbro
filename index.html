@@ -24,7 +24,7 @@
 			<dialog open>
 				<div id="startScreen">
 					<h2>Welcome, bros</h2>
-					<form id="names" method="dialog" name="names" onsubmit="Startflow.nameEntry()" required>
+					<form id="names" method="dialog" name="names" onsubmit="Startflow.confirmNames()" required>
 						<label for="player1Name" hidden>Player 1 Name:</label>
 						<input
 						  type="text"
@@ -51,7 +51,7 @@
 					</form>
 						 <div id="startButtonsDiv">
 					<button class="btnShadow" type="submit" form="names">Confirm Names</button>
-					<button class="btnShadow" onclick="Startflow.testSubmit()">fuck names</button>
+					<button class="btnShadow" type="reset" form="names" onclick="Startflow.showBoard()" formnovalidate>fuck names</button>
 						</div>
 				</div>
 			</dialog>

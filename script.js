@@ -143,8 +143,8 @@ const GameBoard = (() => {
     DisplayControl.infoFeed.reset();
     //resets info Display
 
-    document.querySelector("#player1Name").value = ''
-    document.querySelector("#player2Name").value = ''
+    document.querySelector("#player1Name").value = "";
+    document.querySelector("#player2Name").value = "";
     //resets Dialog box names
   };
 
@@ -206,23 +206,21 @@ const GameBoard = (() => {
 /////////////////////////////////////////////////
 
 const Startflow = (() => {
-  const nameEntry = () => {
-    PlayersModule.player1.setName(document.querySelector("#player1Name").value)
-    PlayersModule.player2.setName(document.querySelector("#player2Name").value)
-
-    document.querySelector('#gameBoard').style.display = "grid";
-    document.querySelector('#infoDisplay').style.display = "flex";
-    //Dialog closes automatically by using Dialog
-    
-  }
+  const confirmNames = () => {
+    PlayersModule.player1.setName(document.querySelector("#player1Name").value);
+    PlayersModule.player2.setName(document.querySelector("#player2Name").value);
+    //Dialog closes automatically by submitting form on Dialog
+    showBoard()
+  };
   //takes the values present in text boxes and makes them player names
-  //resetting is handled independently by the Reset function from PlayersModule
+  //value reset is handled by the Reset function from PlayersModule
 
-  const testSubmit = () => {
-    console.log("fuck")
+  const showBoard = () => {
+    document.querySelector("dialog").close()
+    //ultimately, this is needed unfortunately despite using method=dialog
+    document.querySelector("#gameBoard").style.display = "grid";
+    document.querySelector("#infoDisplay").style.display = "flex";
+  };
 
-  }
-
-
-  return { nameEntry, testSubmit }
+  return { confirmNames, showBoard };
 })();
