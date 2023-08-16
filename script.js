@@ -92,6 +92,9 @@ const DisplayControl = (() => {
           "Draw! Nobody wins";
         break;
     }
+    document.querySelector("#infoDisplay button").style.display = "block";
+    //reveals 'Restart?' button upon win condition
+
     pointerEvents("disable");
     //removes pointerEvent (click)ability
   };
@@ -144,8 +147,14 @@ const GameBoard = (() => {
     DisplayControl.pointerEvents("reset");
     //restores pointerEvent (click)ability
 
-    DisplayControl.infoFeed.reset();
-    //resets info Display
+    DisplayControl.infoFeed.matchStart();
+    //resets info Display prompt to Player 1's turn (i.e: match start)
+
+    document.querySelector("dialog").showModal()
+    document.querySelector("#gameBoard").style.display = "none";
+    document.querySelector("#infoDisplay").style.display = "none";
+    document.querySelector("#infoDisplay button").style.display = "none";
+    //hides Gameboard and re-opens Start Screen modal/dialog
 
     document.querySelector("#player1Name").value = "";
     document.querySelector("#player2Name").value = "";
@@ -182,6 +191,7 @@ const GameBoard = (() => {
       //send 'null' to Results function, interpreted as a Draw
     } else {
       DisplayControl.infoFeed.whosTurn();
+      //Displays who's turn it is - only if there was no win condition
     }
   };
   /////////////////////////////////////////////////

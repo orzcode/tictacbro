@@ -123,17 +123,22 @@ h1 {
   display: none; /*should be Flex*/
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   justify-self: start;
   flex-grow: 0;
-  background-color: rgb(36, 65, 55);
   gap: 1rem;
   padding: 1rem;
+}
+#infoDisplay button {
+ display: none; /*should be Block*/
 }
 h2 {
   text-align: center;
   filter: drop-shadow(1px 1px 1px black);
   font-size: clamp(2.8rem, 6vw, 3.8rem);
 }
+
+
 form {
   display: flex;
   width: 100%;
