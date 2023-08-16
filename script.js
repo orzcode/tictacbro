@@ -65,14 +65,18 @@ const DisplayControl = (() => {
   };
 
   const infoFeed = (() => {
-    const reset = function () {
+    const matchStart = function () {
       document.querySelector("#infoDisplay h2").innerHTML =
-        "Click a tile to begin!";
+      PlayersModule.player1.getName() + ", click a tile to begin!";
     };
+    const whosTurn = function () {
+      document.querySelector("#infoDisplay h2").innerHTML =
+      PlayersModule.activePlayer.getName() + ", click a tile!";
+    }
     const winMsg = function (player) {
       document.querySelector("#infoDisplay h2").innerHTML = player + " wins!";
     };
-    return { reset, winMsg };
+    return { matchStart, winMsg, whosTurn };
   })();
 
   const results = (playerSymbol) => {
@@ -221,7 +225,7 @@ const Startflow = (() => {
     document.querySelector("#gameBoard").style.display = "grid";
     document.querySelector("#infoDisplay").style.display = "flex";
 
-    document.querySelector("#infoDisplay h2").prepend(PlayersModule.player1.getName() + ", click a tile to begin!");
+    DisplayControl.infoFeed.matchStart();
     //puts P1's name in InfoDisplay and tells them to go first
   };
 
