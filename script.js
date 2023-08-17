@@ -54,6 +54,9 @@ const PlayersModule = (() => {
 /////////////////////////////////////////////////
 
 const DisplayControl = (() => {
+  document.querySelector('input').blur();
+  //-----------------------TESTING THIS FOR REMOVAL OF AUTOFOCUS!----------------------
+  
   const pointerEvents = (mode) => {
     if (typeof mode === 'number') {
       document.querySelector(`#tile-${mode}`).style.pointerEvents = "none";
