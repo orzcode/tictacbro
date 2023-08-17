@@ -55,6 +55,12 @@ const PlayersModule = (() => {
 
 const DisplayControl = (() => {
   const pointerEvents = (mode) => {
+    if (typeof mode === 'number') {
+      document.querySelector(`#tile-${mode}`).style.pointerEvents = "none";
+    }//Used in-game, upon clicking - represents tile number
+
+    else
+
     document.querySelectorAll(".tile").forEach((tileElement) => {
       if (mode === "reset") {
         tileElement.style.pointerEvents = "auto";
@@ -92,7 +98,7 @@ const DisplayControl = (() => {
           "Draw! Nobody wins";
         break;
     }
-    document.querySelector("#infoDisplay button").style.display = "block";
+    document.querySelector("#infoDisplay button").style.visibility = "visible";
     //reveals 'Restart?' button upon win condition
 
     pointerEvents("disable");
@@ -124,9 +130,15 @@ const GameBoard = (() => {
           if (tileArray[tile] === null) {
             document.querySelector(`#tile-${tile}`).innerHTML =
               PlayersModule.activePlayer.getSymbol();
-            tileArray[tile] = PlayersModule.activePlayer.getSymbol(); // Update tileArray with player's symbol
+            // Updates tile DIV with player symbol
+
+            tileArray[tile] = PlayersModule.activePlayer.getSymbol(); 
+            // Updates tileArray with player's symbol
+
             PlayersModule.activePlayer.switchActive();
-            // Switch to the other player
+            // Switches to the other player
+
+            DisplayControl.pointerEvents(tile);
             winChecker();
           } else console.log("Can't apply playerSymbol - tile is not NULL!");
         };
@@ -153,7 +165,7 @@ const GameBoard = (() => {
     document.querySelector("dialog").showModal()
     document.querySelector("#gameBoard").style.display = "none";
     document.querySelector("#infoDisplay").style.display = "none";
-    document.querySelector("#infoDisplay button").style.display = "none";
+    document.querySelector("#infoDisplay button").style.visibility = "hidden";
     //hides Gameboard and re-opens Start Screen modal/dialog
 
     document.querySelector("#player1Name").value = "";
