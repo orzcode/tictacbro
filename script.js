@@ -135,11 +135,16 @@ const GameBoard = (() => {
             tileArray[tile] = PlayersModule.activePlayer.getSymbol(); 
             // Updates tileArray with player's symbol
 
+            DisplayControl.pointerEvents(tile);
+            // Disables hover effects on already-clicked tile
+
+            winChecker();
+
             PlayersModule.activePlayer.switchActive();
             // Switches to the other player
+            //IF (ACTIVE PLAYER === COMPUTER) THEN DO COMP STUFF
+            //IF NOT, SWITCH NORMALLY?
 
-            DisplayControl.pointerEvents(tile);
-            winChecker();
           } else console.log("Can't apply playerSymbol - tile is not NULL!");
         };
       }
@@ -223,7 +228,7 @@ const GameBoard = (() => {
     [2, 4, 6], // Top-right to bottom-left diagonal
   ];
   /////////////////////////////////////////////////
-  return { tileArrayInit, reset };
+  return { tileArrayInit, tileArray, reset };
   //current thinking: don't return winstates - create a function within gameboard that checks them.
   //pass this the player.getSymbol() method (maybe), but in either case, keep the checker function in
   //here and also keep the winstates in here, so they dont leak but can still be checked.
@@ -255,3 +260,21 @@ const Startflow = (() => {
 
   return { confirmNames, showBoard };
 })();
+
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+
+const AI = (() => {
+  const move = () => {
+    let tileArrayNulls = tileArray.filter(tile => tile === null);
+    // creates a list of possible options to move on, based on null tiles
+
+    let randomSpot = Math.floor(Math.random() * tileArrayNulls.length);
+    // picks a random index# to move on
+
+    GameBoard.tileArrayInit.tileClicker(randomSpot)
+  }
+  return { move };
+})();
+//AI.move()
