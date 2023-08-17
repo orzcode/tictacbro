@@ -267,7 +267,7 @@ const Startflow = (() => {
 
 const AI = (() => {
   const move = () => {
-    let tileArrayNulls = tileArray.filter(tile => tile === null);
+    let tileArrayNulls = GameBoard.tileArray.filter(tile => tile === null);
     // creates a list of possible options to move on, based on null tiles
 
     let randomSpot = Math.floor(Math.random() * tileArrayNulls.length);
