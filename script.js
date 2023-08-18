@@ -54,6 +54,7 @@ const PlayersModule = (() => {
 /////////////////////////////////////////////////
 
 const DisplayControl = (() => {
+  document.querySelector('input').blur();
   const pointerEvents = (mode) => {
     if (typeof mode === 'number') {
       document.querySelector(`#tile-${mode}`).style.pointerEvents = "none";
