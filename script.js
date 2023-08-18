@@ -170,7 +170,7 @@ const GameBoard = (() => {
     DisplayControl.infoFeed.matchStart();
     //resets info Display prompt to Player 1's turn (i.e: match start)
 
-    document.querySelector("dialog").showModal()
+    document.querySelector("dialog").show()
     document.querySelector("#gameBoard").style.display = "none";
     document.querySelector("#infoDisplay").style.display = "none";
     document.querySelector("#infoDisplay button").style.visibility = "hidden";
