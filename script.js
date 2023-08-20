@@ -116,7 +116,40 @@ const GameBoard = (() => {
   const tileArray = new Array(9).fill(null);
   //creates an empty array with empty (null) values
 
-  const tileArrayInit = (() => {
+  const tileClickEvents = (tile) => {
+    if (tileArray[tile] === null) {
+      document.querySelector(`#tile-${tile}`).innerHTML =
+        PlayersModule.activePlayer.getSymbol();
+      // Updates tile DIV with player symbol
+
+      tileArray[tile] = PlayersModule.activePlayer.getSymbol(); 
+      // Updates tileArray with player's symbol
+
+      DisplayControl.pointerEvents(tile);
+      // Disables hover effects on already-clicked tile
+      
+      PlayersModule.activePlayer.switchActive();
+      // Switches to the other player
+      //NOTE: this was swapped with winChecker due to activeplayer 
+      //order problem. With this solution, it doesn't matter if the activeplayer
+      //is swapped prematurely - as it will be reset IF A WIN happens below
+
+      winChecker();
+      //Checks wins, stalemates, also displays next player's turn
+      
+      //IF (ACTIVE PLAYER === COMPUTER) THEN DO COMP STUFF
+      //IF NOT, SWITCH NORMALLY?
+
+    } else console.log("Can't apply playerSymbol - tile is not NULL!");
+  }
+  // const tileClicker = (tile) => {
+  //   return function () {
+  //     tileClickEvents(tile)
+  //   };
+  // }
+
+
+  const tileArrayInit = () => {
     //ONCLICK APPLICATION//
     for (let tile = 0; tile <= 8; tile++) {
       //through 0 to 8 (#1 to #9), appends click listener to respective html tile ID#,
@@ -124,33 +157,11 @@ const GameBoard = (() => {
       //needs individual tile precision which is why we can't use forEach.
       document
         .querySelector(`#tile-${tile}`)
-        .addEventListener("click", tileClicker(tile));
-
-      function tileClicker(tile) {
-        return function () {
-          if (tileArray[tile] === null) {
-            document.querySelector(`#tile-${tile}`).innerHTML =
-              PlayersModule.activePlayer.getSymbol();
-            // Updates tile DIV with player symbol
-
-            tileArray[tile] = PlayersModule.activePlayer.getSymbol(); 
-            // Updates tileArray with player's symbol
-
-            DisplayControl.pointerEvents(tile);
-            // Disables hover effects on already-clicked tile
-
-            winChecker();
-
-            PlayersModule.activePlayer.switchActive();
-            // Switches to the other player
-            //IF (ACTIVE PLAYER === COMPUTER) THEN DO COMP STUFF
-            //IF NOT, SWITCH NORMALLY?
-
-          } else console.log("Can't apply playerSymbol - tile is not NULL!");
-        };
-      }
+        .addEventListener("click", function() {
+          tileClickEvents(tile)
+        });
     }
-  })();
+  };
 
   const reset = () => {
     tileArray.fill(null);
@@ -229,7 +240,7 @@ const GameBoard = (() => {
     [2, 4, 6], // Top-right to bottom-left diagonal
   ];
   /////////////////////////////////////////////////
-  return { tileArrayInit, tileArray, reset };
+  return { tileArrayInit, tileArray, reset, tileClickEvents };
   //current thinking: don't return winstates - create a function within gameboard that checks them.
   //pass this the player.getSymbol() method (maybe), but in either case, keep the checker function in
   //here and also keep the winstates in here, so they dont leak but can still be checked.
@@ -244,7 +255,9 @@ const Startflow = (() => {
     PlayersModule.player1.setName(document.querySelector("#player1Name").value);
     PlayersModule.player2.setName(document.querySelector("#player2Name").value);
     //Dialog closes automatically by submitting form on Dialog
+    
     showBoard()
+    //DOM board reveal - but also calls the tileArrayInit
   };
   //takes the values present in text boxes and makes them player names
   //value reset is handled by the Reset function from PlayersModule
@@ -254,9 +267,11 @@ const Startflow = (() => {
     //ultimately, this is needed unfortunately despite using method=dialog
     document.querySelector("#gameBoard").style.display = "grid";
     document.querySelector("#infoDisplay").style.display = "flex";
-
+    
     DisplayControl.infoFeed.matchStart();
     //puts P1's name in InfoDisplay and tells them to go first
+
+    GameBoard.tileArrayInit()
   };
 
   return { confirmNames, showBoard };
@@ -270,11 +285,13 @@ const AI = (() => {
   const move = () => {
     let tileArrayNulls = GameBoard.tileArray.filter(tile => tile === null);
     // creates a list of possible options to move on, based on null tiles
-
+    
     let randomSpot = Math.floor(Math.random() * tileArrayNulls.length);
     // picks a random index# to move on
+    console.log("tileArrayNulls is " + tileArrayNulls + " and randomSpot is " + randomSpot)
+    //  THIS CODE IS FUCKED^^
 
-    GameBoard.tileArrayInit.tileClicker(randomSpot)
+    GameBoard.tileClickEvents(randomSpot)
   }
   return { move };
 })();
