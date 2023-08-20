@@ -102,6 +102,14 @@ const DisplayControl = (() => {
 
     pointerEvents("disable");
     //removes pointerEvent (click)ability
+
+    GameBoard.tileArray.forEach((tile, index) => {
+      if (tile === null) {
+        GameBoard.tileArray[index] = "crap";
+      }
+    });
+    //fills remaining array with crap, which the AI wont recognize as valid
+    //EG: this prevents AI from placing tiles after a winstate
   };
   return { results, pointerEvents, infoFeed };
 })();
