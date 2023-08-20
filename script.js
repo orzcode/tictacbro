@@ -54,32 +54,30 @@ const PlayersModule = (() => {
 /////////////////////////////////////////////////
 
 const DisplayControl = (() => {
-  document.querySelector('input').blur();
+  document.querySelector("input").blur();
   const pointerEvents = (mode) => {
-    if (typeof mode === 'number') {
+    if (typeof mode === "number") {
       document.querySelector(`#tile-${mode}`).style.pointerEvents = "none";
-    }//Used in-game, upon clicking - represents tile number
-
+    } //Used in-game, upon clicking - represents tile number
     else
-
-    document.querySelectorAll(".tile").forEach((tileElement) => {
-      if (mode === "reset") {
-        tileElement.style.pointerEvents = "auto";
-      } else if (mode === "disable") {
-        tileElement.style.pointerEvents = "none";
-      }
-    });
+      document.querySelectorAll(".tile").forEach((tileElement) => {
+        if (mode === "reset") {
+          tileElement.style.pointerEvents = "auto";
+        } else if (mode === "disable") {
+          tileElement.style.pointerEvents = "none";
+        }
+      });
   };
 
   const infoFeed = (() => {
     const matchStart = function () {
       document.querySelector("#infoDisplay h2").innerHTML =
-      PlayersModule.player1.getName() + ", click a tile to begin!";
+        PlayersModule.player1.getName() + ", click a tile to begin!";
     };
     const whosTurn = function () {
       document.querySelector("#infoDisplay h2").innerHTML =
-      PlayersModule.activePlayer.getName() + ", your go bro";
-    }
+        PlayersModule.activePlayer.getName() + ", your go bro";
+    };
     const winMsg = function (player) {
       document.querySelector("#infoDisplay h2").innerHTML = player + " wins!";
     };
@@ -122,32 +120,30 @@ const GameBoard = (() => {
         PlayersModule.activePlayer.getSymbol();
       // Updates tile DIV with player symbol
 
-      tileArray[tile] = PlayersModule.activePlayer.getSymbol(); 
+      tileArray[tile] = PlayersModule.activePlayer.getSymbol();
       // Updates tileArray with player's symbol
 
       DisplayControl.pointerEvents(tile);
       // Disables hover effects on already-clicked tile
-      
+
       PlayersModule.activePlayer.switchActive();
       // Switches to the other player
-      //NOTE: this was swapped with winChecker due to activeplayer 
+      //NOTE: this was swapped with winChecker due to activeplayer
       //order problem. With this solution, it doesn't matter if the activeplayer
       //is swapped prematurely - as it will be reset IF A WIN happens below
 
       winChecker();
       //Checks wins, stalemates, also displays next player's turn
-      
+
       //IF (ACTIVE PLAYER === COMPUTER) THEN DO COMP STUFF
       //IF NOT, SWITCH NORMALLY?
-
     } else console.log("Can't apply playerSymbol - tile is not NULL!");
-  }
+  };
   // const tileClicker = (tile) => {
   //   return function () {
   //     tileClickEvents(tile)
   //   };
   // }
-
 
   const tileArrayInit = () => {
     //ONCLICK APPLICATION//
@@ -157,8 +153,8 @@ const GameBoard = (() => {
       //needs individual tile precision which is why we can't use forEach.
       document
         .querySelector(`#tile-${tile}`)
-        .addEventListener("click", function() {
-          tileClickEvents(tile)
+        .addEventListener("click", function () {
+          tileClickEvents(tile);
         });
     }
   };
@@ -179,7 +175,7 @@ const GameBoard = (() => {
     DisplayControl.infoFeed.matchStart();
     //resets info Display prompt to Player 1's turn (i.e: match start)
 
-    document.querySelector("dialog").show()
+    document.querySelector("dialog").show();
     document.querySelector("#gameBoard").style.display = "none";
     document.querySelector("#infoDisplay").style.display = "none";
     document.querySelector("#infoDisplay button").style.visibility = "hidden";
@@ -255,23 +251,23 @@ const Startflow = (() => {
     PlayersModule.player1.setName(document.querySelector("#player1Name").value);
     PlayersModule.player2.setName(document.querySelector("#player2Name").value);
     //Dialog closes automatically by submitting form on Dialog
-    
-    showBoard()
+
+    showBoard();
     //DOM board reveal - but also calls the tileArrayInit
   };
   //takes the values present in text boxes and makes them player names
   //value reset is handled by the Reset function from PlayersModule
 
   const showBoard = () => {
-    document.querySelector("dialog").close()
+    document.querySelector("dialog").close();
     //ultimately, this is needed unfortunately despite using method=dialog
     document.querySelector("#gameBoard").style.display = "grid";
     document.querySelector("#infoDisplay").style.display = "flex";
-    
+
     DisplayControl.infoFeed.matchStart();
     //puts P1's name in InfoDisplay and tells them to go first
 
-    GameBoard.tileArrayInit()
+    GameBoard.tileArrayInit();
   };
 
   return { confirmNames, showBoard };
@@ -283,16 +279,22 @@ const Startflow = (() => {
 
 const AI = (() => {
   const move = () => {
-    let tileArrayNulls = GameBoard.tileArray.filter(tile => tile === null);
-    // creates a list of possible options to move on, based on null tiles
-    
-    let randomSpot = Math.floor(Math.random() * tileArrayNulls.length);
-    // picks a random index# to move on
-    console.log("tileArrayNulls is " + tileArrayNulls + " and randomSpot is " + randomSpot)
-    //  THIS CODE IS FUCKED^^
+    let tileArrayNulls = [];
+    GameBoard.tileArray.forEach((tile, index) => {
+      if (tile === null) {
+        tileArrayNulls.push(index);
+      }
+    });
+    // creates array of NULL index positions - i.e. possible move options
 
-    GameBoard.tileClickEvents(randomSpot)
-  }
+    let randomSpot = tileArrayNulls[Math.floor(Math.random() * tileArrayNulls.length)];
+    // picks a random index# to move on
+
+    console.log(
+      "tileArrayNulls is " + tileArrayNulls + " and randomSpot is " + randomSpot
+    );
+
+    GameBoard.tileClickEvents(randomSpot);
+  };
   return { move };
 })();
-//AI.move()
