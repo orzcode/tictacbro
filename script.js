@@ -139,11 +139,10 @@ const GameBoard = (() => {
 
       //And if no win....... :
       
-      //MAKE THIS 'ACTIVEPLAYER' INSTEAD
-      if (PlayersModule.player2.name === "CPU") {
+      PlayersModule.activePlayer.switchActive();
+      
+      if (PlayersModule.activePlayer.getName() === "CPU (O)") {
         AI.move();
-      } else {
-        PlayersModule.activePlayer.switchActive();
       }
       // Switches to the other player
       //NOTE: this was swapped with winChecker due to activeplayer
