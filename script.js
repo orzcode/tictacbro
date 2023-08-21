@@ -34,9 +34,6 @@ const PlayersModule = (() => {
   //resets all players AND activePlayer
 
   const switchActive = () => {
-    // if (player2.name === "CPU") {
-    //   AI.move();
-    // } else 
     activePlayer = activePlayer === player1 ? player2 : player1;
   };
 
@@ -137,17 +134,24 @@ const GameBoard = (() => {
       DisplayControl.pointerEvents(tile);
       // Disables hover effects on already-clicked tile
 
-      PlayersModule.activePlayer.switchActive();
+      winChecker();
+      //Checks wins, stalemates, also displays next player's turn
+
+      //And if no win....... :
+      
+      if (PlayersModule.player2.name === "CPU") {
+        AI.move();
+      } else {
+        PlayersModule.activePlayer.switchActive();
+      }
       // Switches to the other player
       //NOTE: this was swapped with winChecker due to activeplayer
       //order problem. With this solution, it doesn't matter if the activeplayer
       //is swapped prematurely - as it will be reset IF A WIN happens below
 
-      winChecker();
-      //Checks wins, stalemates, also displays next player's turn
+      DisplayControl.infoFeed.whosTurn();
+      //Displays who's turn it is - only if there was no win condition
 
-      //IF (ACTIVE PLAYER === COMPUTER) THEN DO COMP STUFF
-      //IF NOT, SWITCH NORMALLY?
     } else console.log("Can't apply playerSymbol - tile is not NULL!");
   };
   // const tileClicker = (tile) => {
@@ -225,10 +229,11 @@ const GameBoard = (() => {
     if (tileArray.every((tile) => tile !== null)) {
       DisplayControl.results(null);
       //send 'null' to Results function, interpreted as a Draw
-    } else {
-      DisplayControl.infoFeed.whosTurn();
-      //Displays who's turn it is - only if there was no win condition
-    }
+    } 
+    // else {
+    //   DisplayControl.infoFeed.whosTurn();
+    //   //Displays who's turn it is - only if there was no win condition
+    // DEFUNCT - MOVED TO EVENTLISTENER}
   };
   /////////////////////////////////////////////////
   const winStates = [
