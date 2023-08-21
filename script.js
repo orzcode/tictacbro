@@ -139,6 +139,7 @@ const GameBoard = (() => {
 
       //And if no win....... :
       
+      //MAKE THIS 'ACTIVEPLAYER' INSTEAD
       if (PlayersModule.player2.name === "CPU") {
         AI.move();
       } else {
