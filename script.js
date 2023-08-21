@@ -34,6 +34,9 @@ const PlayersModule = (() => {
   //resets all players AND activePlayer
 
   const switchActive = () => {
+    // if (player2.name === "CPU") {
+    //   AI.move();
+    // } else 
     activePlayer = activePlayer === player1 ? player2 : player1;
   };
 
@@ -255,11 +258,24 @@ const GameBoard = (() => {
 /////////////////////////////////////////////////
 
 const Startflow = (() => {
+  const nameInputToggle = (disable) => {
+    const player2NameInput = document.getElementById("player2Name");
+    player2NameInput.disabled = disable;
+  };
+  //uses the HTML attrib "onchange" to trigger
+
+  const cpuCheck = () => {
+    if (document.querySelector("#cpu").checked) {
+      PlayersModule.player2.setName("CPU");
+    }
+  };
+
   const confirmNames = () => {
     PlayersModule.player1.setName(document.querySelector("#player1Name").value);
     PlayersModule.player2.setName(document.querySelector("#player2Name").value);
     //Dialog closes automatically by submitting form on Dialog
-
+    cpuCheck();
+    //sets P2's name (which enables the CPU) if CPU radio is checked
     showBoard();
     //DOM board reveal - but also calls the tileArrayInit
   };
@@ -267,6 +283,8 @@ const Startflow = (() => {
   //value reset is handled by the Reset function from PlayersModule
 
   const showBoard = () => {
+    cpuCheck();
+
     document.querySelector("dialog").close();
     //ultimately, this is needed unfortunately despite using method=dialog
     document.querySelector("#gameBoard").style.display = "grid";
@@ -278,7 +296,7 @@ const Startflow = (() => {
     GameBoard.tileArrayInit();
   };
 
-  return { confirmNames, showBoard };
+  return { confirmNames, showBoard, nameInputToggle };
 })();
 
 /////////////////////////////////////////////////
@@ -295,7 +313,8 @@ const AI = (() => {
     });
     // creates array of NULL index positions - i.e. possible move options
 
-    let randomSpot = tileArrayNulls[Math.floor(Math.random() * tileArrayNulls.length)];
+    let randomSpot =
+      tileArrayNulls[Math.floor(Math.random() * tileArrayNulls.length)];
     // picks a random index# to move on
 
     console.log(

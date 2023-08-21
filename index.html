@@ -25,7 +25,25 @@
 			<dialog open>
 				<div id="startScreen">
 					<h2>Enter names or just say fuck it</h2>
-					<form id="names" method="dialog" name="names" onsubmit="Startflow.confirmNames()" required>
+
+
+
+					<form id="startForm" method="dialog" name="names" onsubmit="Startflow.confirmNames()" required>
+						
+						<fieldset form="startForm" name="gameType">
+							<legend hidden>Game Type:</legend>
+						<div>
+							<input type="radio" id="cpu" value="cpu" name="gameType" checked onchange="Startflow.nameInputToggle(true)">
+							<label for="cpu">vs CPU</label>
+						</div>
+						<div>
+							<input type="radio" id="human" value="human" name="gameType" onchange="Startflow.nameInputToggle(false)">
+							<label for="human">vs Human</label>
+						</div>
+						</fieldset>
+						
+						<fieldset form="startForm" name="names">
+							<legend hidden>Enter name:</legend>
 						<label for="player1Name" hidden>Player 1 Name:</label>
 						<input
 						  type="text"
@@ -47,12 +65,13 @@
 						maxlength="14"
 						placeholder="Player 2 - Enter Name"
 						title="Player 2 - Enter Name"
-						required
+						required disabled
 					  />
+					</fieldset>
 					</form>
 						 <div id="startButtonsDiv">
-					<button class="btnShadow" type="submit" form="names">Confirm Names</button>
-					<button class="btnShadow" type="reset" form="names" onclick="Startflow.showBoard()" formnovalidate>fuck names</button>
+					<button class="btnShadow" type="submit" form="startForm">Confirm Names</button>
+					<button class="btnShadow" type="reset" form="startForm" onclick="Startflow.showBoard()" formnovalidate>fuck names</button>
 						</div>
 				</div>
 			</dialog>
