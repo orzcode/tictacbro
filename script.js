@@ -41,6 +41,8 @@ const PlayersModule = (() => {
     player1,
     player2,
     activePlayer: {
+      name: () => activePlayer.name,
+      //used only for checking if CPU within tileClicker
       getName: () => activePlayer.getName(),
       getSymbol: () => activePlayer.getSymbol(),
       switchActive,
@@ -140,14 +142,14 @@ const GameBoard = (() => {
       //And if no win....... :
       
       PlayersModule.activePlayer.switchActive();
+      // Switches to the other player
       
-      if (PlayersModule.activePlayer.getName() === "CPU (O)") {
+      if (PlayersModule.activePlayer.name() === "CPU") {
         AI.move();
       }
-      // Switches to the other player
-      //NOTE: this was swapped with winChecker due to activeplayer
-      //order problem. With this solution, it doesn't matter if the activeplayer
-      //is swapped prematurely - as it will be reset IF A WIN happens below
+      //checks if activePlayer is a CPU and runs their function.
+      //Perhaps a better method exists such as a 'CPU flag'
+      //rather than naming P2 "CPU" directly
 
       DisplayControl.infoFeed.whosTurn();
       //Displays who's turn it is - only if there was no win condition
