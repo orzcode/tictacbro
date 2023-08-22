@@ -156,9 +156,6 @@ h2 {
   width: 100%;
   line-height: 1.5;
 }
-#startScreen * {
-  border: 1px solid blue;
-}
 dialog {
   height: clamp(40rem, 75vw, 80rem);
   width: clamp(35rem, 75vw, 85rem);
@@ -186,10 +183,12 @@ fieldset[name="names"] {
   justify-content: space-evenly;
   width: 100%;
   gap: 1rem;
+  border: none;
 }
 fieldset[name="gameType"] {
   display: flex;
   gap: 4rem;
+  border: none;
 }
 #startButtonsDiv {
   display: flex;
