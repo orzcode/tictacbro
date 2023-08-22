@@ -137,7 +137,7 @@ const GameBoard = (() => {
       // Disables hover effects on already-clicked tile
 
       winChecker();
-      //Checks wins, stalemates, also displays next player's turn
+      //Checks wins, stalemates, displays results if so - end game.
 
       //And if no win....... :
       
@@ -156,11 +156,6 @@ const GameBoard = (() => {
 
     } else console.log("Can't apply playerSymbol - tile is not NULL!");
   };
-  // const tileClicker = (tile) => {
-  //   return function () {
-  //     tileClickEvents(tile)
-  //   };
-  // }
 
   const tileArrayInit = () => {
     //ONCLICK APPLICATION//
