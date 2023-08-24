@@ -329,8 +329,11 @@ const AI = (() => {
     console.log(
       "tileArrayNulls is " + tileArrayNulls + " and randomSpot is " + randomSpot
     );
-
+  
+  setTimeout(function() {
     GameBoard.tileClickEvents(randomSpot);
+  }, 1000);
+  //emulates cpu "thinking" for 1 second
   };
   return { move };
 })();
