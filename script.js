@@ -78,7 +78,7 @@ const DisplayControl = (() => {
     };
     const whosTurn = function () {
       document.querySelector("#infoDisplay h2").innerHTML =
-        PlayersModule.activePlayer.getName() + ", your go bro";
+        PlayersModule.activePlayer.getName() + ", your move";
     };
     const winMsg = function (player) {
       document.querySelector("#infoDisplay h2").innerHTML = player + " wins!";
@@ -142,8 +142,15 @@ const GameBoard = (() => {
       DisplayControl.pointerEvents(tile);
       // Disables hover effects on already-clicked tile
 
-      winChecker();
-      //Checks wins, stalemates, displays results if so - end game.
+      //TESTING//
+      // if (winChecker() === true){
+      //   console.log("FUCK")
+      //   return
+      // };
+      //TESTING//
+
+      winChecker();      
+      //Checks wins, stalemates, displays results if so - end game? sadly not. force end here
 
       //And if no win....... :
 
@@ -220,7 +227,7 @@ const GameBoard = (() => {
       ) {
         DisplayControl.results(tileArray[subArr[0]]);
         //send the symbol of the winner to Results function
-        return;
+        return true;
       } else {
         //No win - continuing to loop through win conditions;
         continue;
@@ -231,11 +238,8 @@ const GameBoard = (() => {
     if (tileArray.every((tile) => tile !== null)) {
       DisplayControl.results(null);
       //send 'null' to Results function, interpreted as a Draw
+      return true;
     }
-    // else {
-    //   DisplayControl.infoFeed.whosTurn();
-    //   //Displays who's turn it is - only if there was no win condition
-    // DEFUNCT - MOVED TO EVENTLISTENER}
   };
   /////////////////////////////////////////////////
   const winStates = [
@@ -312,6 +316,7 @@ const Startflow = (() => {
 
 const AI = (() => {
   const move = () => {
+    console.log("--- AI.move() has triggered ---");
     let tileArrayNulls = [];
     GameBoard.tileArray.forEach((tile, index) => {
       if (tile === null) {
@@ -327,7 +332,6 @@ const AI = (() => {
     console.log(
       "tileArrayNulls is " + tileArrayNulls + " and randomSpot is " + randomSpot
     );
-    console.log("( AI.move() )");
 
     GameBoard.tileClickEvents(randomSpot);
   };
