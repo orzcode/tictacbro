@@ -126,6 +126,12 @@ const GameBoard = (() => {
 
   const tileClickEvents = (tile) => {
     if (tileArray[tile] === null) {
+      console.log("-------------------------------");
+      console.log("---A tile has been clicked!---");
+      console.log("-----(tileClickEvents)--------");
+      console.log("-------------------------------");
+      //for debugging clarity :P
+
       document.querySelector(`#tile-${tile}`).innerHTML =
         PlayersModule.activePlayer.getSymbol();
       // Updates tile DIV with player symbol
@@ -140,10 +146,10 @@ const GameBoard = (() => {
       //Checks wins, stalemates, displays results if so - end game.
 
       //And if no win....... :
-      
+
       PlayersModule.activePlayer.switchActive();
       // Switches to the other player
-      
+
       if (PlayersModule.activePlayer.name() === "CPU") {
         AI.move();
       }
@@ -153,7 +159,6 @@ const GameBoard = (() => {
 
       DisplayControl.infoFeed.whosTurn();
       //Displays who's turn it is - only if there was no win condition
-
     } else console.log("Can't apply playerSymbol - tile is not NULL!");
   };
 
@@ -226,7 +231,7 @@ const GameBoard = (() => {
     if (tileArray.every((tile) => tile !== null)) {
       DisplayControl.results(null);
       //send 'null' to Results function, interpreted as a Draw
-    } 
+    }
     // else {
     //   DisplayControl.infoFeed.whosTurn();
     //   //Displays who's turn it is - only if there was no win condition
@@ -322,6 +327,7 @@ const AI = (() => {
     console.log(
       "tileArrayNulls is " + tileArrayNulls + " and randomSpot is " + randomSpot
     );
+    console.log("( AI.move() )");
 
     GameBoard.tileClickEvents(randomSpot);
   };
