@@ -142,13 +142,6 @@ const GameBoard = (() => {
       DisplayControl.pointerEvents(tile);
       // Disables hover effects on already-clicked tile
 
-      //TESTING//
-      // if (winChecker() === true){
-      //   console.log("FUCK")
-      //   return
-      // };
-      //TESTING//
-
       winChecker();      
       //Checks wins, stalemates, displays results if so - end game? sadly not. force end here
 
@@ -164,7 +157,11 @@ const GameBoard = (() => {
       //Perhaps a better method exists such as a 'CPU flag'
       //rather than naming P2 "CPU" directly
 
-      DisplayControl.infoFeed.whosTurn();
+      if (winChecker() !== true){
+        DisplayControl.infoFeed.whosTurn();
+        return
+      };
+      //DisplayControl.infoFeed.whosTurn();
       //Displays who's turn it is - only if there was no win condition
     } else console.log("Can't apply playerSymbol - tile is not NULL!");
   };
