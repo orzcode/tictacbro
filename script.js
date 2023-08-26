@@ -18,7 +18,7 @@ const PlayersModule = (() => {
       },
       getNameAndSymbol: function () {
         return `${this.name} (${this.symbol})`;
-      }
+      },
     };
   };
 
@@ -70,11 +70,12 @@ const DisplayControl = (() => {
         } else if (mode === "disableAll") {
           tileElement.style.pointerEvents = "none";
         } else if (mode === "disablePlayed") {
-            GameBoard.tileArray.forEach((tile, index) => {
-              if (tile !== null) {
-                document.querySelector(`#tile-${index}`).style.pointerEvents = "none";
-              }
-            });
+          GameBoard.tileArray.forEach((tile, index) => {
+            if (tile !== null) {
+              document.querySelector(`#tile-${index}`).style.pointerEvents =
+                "none";
+            }
+          });
         }
       });
   };
@@ -85,12 +86,13 @@ const DisplayControl = (() => {
         PlayersModule.player1.getNameAndSymbol() + ", click a tile to begin!";
     };
     const whosTurn = function () {
-      if(PlayersModule.activePlayer.getName() === "CPU"){
+      if (PlayersModule.activePlayer.getName() === "CPU") {
         document.querySelector("#infoDisplay h2").innerHTML =
-        PlayersModule.activePlayer.getNameAndSymbol() + "'s turn (thinking...)";
-      }else
-      document.querySelector("#infoDisplay h2").innerHTML =
-        PlayersModule.activePlayer.getNameAndSymbol() + ", your move";
+          PlayersModule.activePlayer.getNameAndSymbol() +
+          "'s turn (thinking...)";
+      } else
+        document.querySelector("#infoDisplay h2").innerHTML =
+          PlayersModule.activePlayer.getNameAndSymbol() + ", your move";
     };
     const winMsg = function (player) {
       document.querySelector("#infoDisplay h2").innerHTML = player + " wins!";
@@ -154,29 +156,28 @@ const GameBoard = (() => {
       DisplayControl.pointerEvents(tile);
       // Disables hover effects on already-clicked tile
 
-      winChecker();      
-      //Checks wins, stalemates, displays results if so - end game? sadly not. force end here
+      if (winChecker() === true) {
+        return;
+      }
+      //Checks wins/stalemates, displays results if so & ends game
+      
+      //////////////
+        //Game needs to END upon successful Win Check
+      //////////////
 
       //And if no win....... :
+        PlayersModule.activePlayer.switchActive();
+        // Switches to the other player
 
-      PlayersModule.activePlayer.switchActive();
-      // Switches to the other player
+        if (PlayersModule.activePlayer.getName() === "CPU") {
+          AI.move();
+        }
+        //checks if activePlayer is a CPU and runs their function.
+        //Perhaps a better method exists such as a 'CPU flag'
+        //rather than naming P2 "CPU" directly
 
-      if (PlayersModule.activePlayer.getName() === "CPU") {
-        AI.move();
-
-
-      }
-      //checks if activePlayer is a CPU and runs their function.
-      //Perhaps a better method exists such as a 'CPU flag'
-      //rather than naming P2 "CPU" directly
-
-      if (winChecker() !== true){
         DisplayControl.infoFeed.whosTurn();
-        return
-      };
-      //DisplayControl.infoFeed.whosTurn();
-      //Displays who's turn it is - only if there was no win condition
+        //Displays who's turn it is - only if there was no win condition
     } else console.log("Can't apply playerSymbol - tile is not NULL!");
   };
 
@@ -346,16 +347,16 @@ const AI = (() => {
     console.log(
       "tileArrayNulls is " + tileArrayNulls + " and randomSpot is " + randomSpot
     );
-  
-  setTimeout(function() {
-    GameBoard.tileClickEvents(randomSpot);
 
-    DisplayControl.pointerEvents("reset");
-    //re-allows human clicking on all
-    DisplayControl.pointerEvents("disablePlayed");
-    //re-disables only the played tiles
-  }, 1500);
-  //emulates cpu "thinking" for 1.5 second
+    setTimeout(function () {
+      GameBoard.tileClickEvents(randomSpot);
+
+      DisplayControl.pointerEvents("reset");
+      //re-allows human clicking on all
+      DisplayControl.pointerEvents("disablePlayed");
+      //re-disables only the played tiles
+    }, 1500);
+    //emulates cpu "thinking" for 1.5 second
   };
   return { move };
 })();
