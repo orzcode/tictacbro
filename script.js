@@ -8,7 +8,7 @@ const PlayersModule = (() => {
         this.name = newName;
       },
       getName: function () {
-        return `${this.name} (${this.symbol})`;
+        return this.name;
       },
       setSymbol: function (newSymbol) {
         this.symbol = newSymbol;
@@ -16,6 +16,9 @@ const PlayersModule = (() => {
       getSymbol: function () {
         return this.symbol;
       },
+      getNameAndSymbol: function () {
+        return `${this.name} (${this.symbol})`;
+      }
     };
   };
 
@@ -41,10 +44,9 @@ const PlayersModule = (() => {
     player1,
     player2,
     activePlayer: {
-      name: () => activePlayer.name,
-      //used only for checking if CPU within tileClicker
       getName: () => activePlayer.getName(),
       getSymbol: () => activePlayer.getSymbol(),
+      getNameAndSymbol: () => activePlayer.getNameAndSymbol(),
       switchActive,
     },
     resetPlayers,
@@ -65,8 +67,14 @@ const DisplayControl = (() => {
       document.querySelectorAll(".tile").forEach((tileElement) => {
         if (mode === "reset") {
           tileElement.style.pointerEvents = "auto";
-        } else if (mode === "disable") {
+        } else if (mode === "disableAll") {
           tileElement.style.pointerEvents = "none";
+        } else if (mode === "disablePlayed") {
+            GameBoard.tileArray.forEach((tile, index) => {
+              if (tile !== null) {
+                document.querySelector(`#tile-${index}`).style.pointerEvents = "none";
+              }
+            });
         }
       });
   };
@@ -74,11 +82,15 @@ const DisplayControl = (() => {
   const infoFeed = (() => {
     const matchStart = function () {
       document.querySelector("#infoDisplay h2").innerHTML =
-        PlayersModule.player1.getName() + ", click a tile to begin!";
+        PlayersModule.player1.getNameAndSymbol() + ", click a tile to begin!";
     };
     const whosTurn = function () {
+      if(PlayersModule.activePlayer.getName() === "CPU"){
+        document.querySelector("#infoDisplay h2").innerHTML =
+        PlayersModule.activePlayer.getNameAndSymbol() + "'s turn (thinking...)";
+      }else
       document.querySelector("#infoDisplay h2").innerHTML =
-        PlayersModule.activePlayer.getName() + ", your move";
+        PlayersModule.activePlayer.getNameAndSymbol() + ", your move";
     };
     const winMsg = function (player) {
       document.querySelector("#infoDisplay h2").innerHTML = player + " wins!";
@@ -89,10 +101,10 @@ const DisplayControl = (() => {
   const results = (playerSymbol) => {
     switch (playerSymbol) {
       case PlayersModule.player1.getSymbol():
-        infoFeed.winMsg(PlayersModule.player1.getName());
+        infoFeed.winMsg(PlayersModule.player1.getNameAndSymbol());
         break;
       case PlayersModule.player2.getSymbol():
-        infoFeed.winMsg(PlayersModule.player2.getName());
+        infoFeed.winMsg(PlayersModule.player2.getNameAndSymbol());
         break;
       case null:
         document.querySelector("#infoDisplay h2").innerHTML =
@@ -102,7 +114,7 @@ const DisplayControl = (() => {
     document.querySelector("#infoDisplay button").style.visibility = "visible";
     //reveals 'Restart?' button upon win condition
 
-    pointerEvents("disable");
+    pointerEvents("disableAll");
     //removes pointerEvent (click)ability
 
     GameBoard.tileArray.forEach((tile, index) => {
@@ -150,8 +162,10 @@ const GameBoard = (() => {
       PlayersModule.activePlayer.switchActive();
       // Switches to the other player
 
-      if (PlayersModule.activePlayer.name() === "CPU") {
+      if (PlayersModule.activePlayer.getName() === "CPU") {
         AI.move();
+
+
       }
       //checks if activePlayer is a CPU and runs their function.
       //Perhaps a better method exists such as a 'CPU flag'
@@ -314,6 +328,9 @@ const Startflow = (() => {
 const AI = (() => {
   const move = () => {
     console.log("--- AI.move() has triggered ---");
+    DisplayControl.pointerEvents("disableAll");
+    //disallows human from clicking while not their turn
+
     let tileArrayNulls = [];
     GameBoard.tileArray.forEach((tile, index) => {
       if (tile === null) {
@@ -332,8 +349,13 @@ const AI = (() => {
   
   setTimeout(function() {
     GameBoard.tileClickEvents(randomSpot);
-  }, 1000);
-  //emulates cpu "thinking" for 1 second
+
+    DisplayControl.pointerEvents("reset");
+    //re-allows human clicking on all
+    DisplayControl.pointerEvents("disablePlayed");
+    //re-disables only the played tiles
+  }, 1500);
+  //emulates cpu "thinking" for 1.5 second
   };
   return { move };
 })();
