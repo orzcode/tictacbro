@@ -140,10 +140,7 @@ const GameBoard = (() => {
 
   const tileClickEvents = (tile) => {
     if (tileArray[tile] === null) {
-      console.log("-------------------------------");
-      console.log("---A tile has been clicked!---");
-      console.log("-----(tileClickEvents)--------");
-      console.log("-------------------------------");
+      console.log("---A tile has been clicked!--(tileClickEvents)--");
       //for debugging clarity :P
 
       document.querySelector(`#tile-${tile}`).innerHTML =
