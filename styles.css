@@ -243,8 +243,10 @@ fieldset[name="gameType"] {
   color: var(--accent);
   margin: 0.5rem;
 }
+@media (hover: hover) {
 .tile:hover {
   filter: brightness(150%);
+}
 }
 .tile:active {
   transform: scale(0.925);
