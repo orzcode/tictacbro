@@ -228,7 +228,7 @@ fieldset[name="gameType"] {
 .tile {
   width: clamp(10rem, 24vw, 24rem);
   height: clamp(10rem, 24vw, 24rem);
-  font-size: clamp(10rem, 24vw, 24rem);
+  font-size: clamp(8rem, 14vw, 16rem);
   /*These 3 should stay uniform*/
   /*See also #gameBoard size dependency*/
 

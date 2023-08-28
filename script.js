@@ -22,7 +22,7 @@ const PlayersModule = (() => {
     };
   };
 
-  let player1 = createPlayer("Player 1", "X");
+  let player1 = createPlayer("Player 1", "👻");
   let player2 = createPlayer("Player 2", "O");
 
   let activePlayer = player1;
@@ -287,6 +287,13 @@ const Startflow = (() => {
   const cpuCheck = () => {
     if (document.querySelector("#cpu").checked) {
       PlayersModule.player2.setName("CPU");
+
+    // // Create an <img> element and set its src attribute to the image file
+    // const cpuImage = document.createElement("img");
+    // cpuImage.src = "ultros.webp";
+
+    // // Set the HTML content of the symbol
+    // PlayersModule.player2.setSymbol(cpuImage.outerHTML);
     }
   };
 
@@ -295,7 +302,7 @@ const Startflow = (() => {
     PlayersModule.player2.setName(document.querySelector("#player2Name").value);
     //Dialog closes automatically by submitting form on Dialog
     cpuCheck();
-    //sets P2's name (which enables the CPU) if CPU radio is checked
+    //sets P2's name as "CPU" (which enables the CPU) if CPU radio is checked
     showBoard();
     //DOM board reveal - but also calls the tileArrayInit
   };
