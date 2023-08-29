@@ -22,8 +22,8 @@ const PlayersModule = (() => {
     };
   };
 
-  let player1 = createPlayer("Player 1", "👻");
-  let player2 = createPlayer("Player 2", "O");
+  let player1 = createPlayer("Player 1", "🍈");
+  let player2 = createPlayer("Player 2", "🍌");
 
   let activePlayer = player1;
 
