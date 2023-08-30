@@ -287,13 +287,7 @@ const Startflow = (() => {
   const cpuCheck = () => {
     if (document.querySelector("#cpu").checked) {
       PlayersModule.player2.setName("CPU");
-
-    // // Create an <img> element and set its src attribute to the image file
-    // const cpuImage = document.createElement("img");
-    // cpuImage.src = "ultros.webp";
-
-    // // Set the HTML content of the symbol
-    // PlayersModule.player2.setSymbol(cpuImage.outerHTML);
+      PlayersModule.player2.setSymbol("🗿");
     }
   };
 

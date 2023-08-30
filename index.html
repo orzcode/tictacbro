@@ -67,11 +67,27 @@
 						required disabled
 					  />
 					</fieldset>
-					</form>
-						 <div id="startButtonsDiv">
-					<button class="btnShadow" type="submit" form="startForm">Confirm Names</button>
-					<button class="btnShadow" type="reset" form="startForm" onclick="Startflow.showBoard()" formnovalidate>fuck names</button>
+					<fieldset form="startForm" name="symbols">
+						<legend>Pick a symbol</legend>
+						<div id="symbolBox1">
+							<div class="symbolBoxes">🍒</div>
+							<div class="symbolBoxes">🍇</div>
+							<div class="symbolBoxes">🍌</div>
+							<div class="symbolBoxes">🍈</div>
 						</div>
+						<div id="symbolBox2">
+							<div class="symbolBoxes">🍄</div>
+							<div class="symbolBoxes">🌵</div>
+							<div class="symbolBoxes">🐸</div>
+							<div class="symbolBoxes">🌿</div>
+						</div>
+					</fieldset>
+					 <div id="startButtonsDiv">
+						<button class="btnShadow" type="submit" form="startForm">Confirm Names</button>
+						<button class="btnShadow" type="reset" form="startForm" onclick="Startflow.showBoard()" formnovalidate>fuck names</button>
+					</div>
+					</form>
+
 				</div>
 			</dialog>
 			<div id="gameBoard">

@@ -169,10 +169,10 @@ form {
   display: flex;
   flex-direction: column;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-  gap: 4rem;
+  gap: 3rem;
 }
 fieldset[name="names"] {
   display: flex;
@@ -187,14 +187,31 @@ fieldset[name="gameType"] {
   gap: 4rem;
   border: none;
 }
+
+fieldset[name="symbols"]{
+  text-align: center;
+  font-size: clamp(1.1rem, 3.3vw, 2.2rem);
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  gap: 1rem;
+}
+#symbolBox1, #symbolBox2{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: space-evenly;
+  max-width: 5ch;
+  font-size: clamp(3rem, 5vw, 6rem);  
+}
+
+
 #startButtonsDiv {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-
-
-
 
 
 
@@ -243,13 +260,21 @@ fieldset[name="gameType"] {
   color: var(--accent);
   margin: 0.5rem;
 }
+
+/* -- Mobile sticky touch fixes - for hover and actives -- */
 @media (hover: hover) {
 .tile:hover {
   filter: brightness(150%);
 }
+.symbolBoxes:hover{
+  filter: brightness(120%);
+}
 }
 .tile:active {
   transform: scale(0.925);
+}
+.symbolBoxes:active {
+  transform: scale(0.95);
 }
 /* ---------------------------------------------------- */
 .nameEntry {
