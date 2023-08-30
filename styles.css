@@ -48,16 +48,15 @@ button {
   justify-content: center;
   padding: 0.5rem 1rem;
   border-radius: 1.5rem;
-  /* font-size: 3rem;
-  font-weight: 500; */
-  /*text-transform: uppercase;*/
-  /*letter-spacing: 0.1rem;*/
+   /* font-size: 3rem;
+  font-weight: 500; 
+  text-transform: uppercase;*/
   transition: all 0.1s ease-in-out;
   z-index: 1;
+  font-size: clamp(1.1rem, 3.3vw, 2.2rem);
 }
 
 .btnShadow {
-  cursor: pointer;
   box-shadow: 0.5px 0.5px 0.5px 0.5px rgb(50, 50, 50, 1);
   transition: box-shadow 0.1s;
 }
