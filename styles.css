@@ -41,12 +41,13 @@ button {
   outline: inherit;
   border: 1px solid black;
   border-radius: 1.5rem;
+  text-shadow: 0.5px 0.5px #000000;
 }
 .btnShadow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem;
+  padding: 0rem 1rem;
   border-radius: 1.5rem;
    /* font-size: 3rem;
   font-weight: 500; 
@@ -57,11 +58,11 @@ button {
 }
 
 .btnShadow {
-  box-shadow: 0.5px 0.5px 0.5px 0.5px rgb(50, 50, 50, 1);
-  transition: box-shadow 0.1s;
+  filter: drop-shadow(1px 1px 1px black);
+  transition: all 0.1s;
 }
 .btnShadow:hover {
-  box-shadow: 1.5px 1.5px 1.5px 1.5px rgb(50, 50, 50, 0.5);
+  filter: drop-shadow(2px 2px 2px black);
 }
 .btnShadow:active {
   transform: translate3d(0.5px, 1px, 0);
