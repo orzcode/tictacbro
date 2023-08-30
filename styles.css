@@ -154,7 +154,7 @@ h2 {
   line-height: 1.5;
 }
 dialog {
-  height: clamp(40rem, 75vw, 80rem);
+  height: clamp(40rem, 75vh, 80rem);
   width: clamp(35rem, 75vw, 85rem);
   margin: auto;
   border: 2px solid black;
