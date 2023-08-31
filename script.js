@@ -281,8 +281,23 @@ const Startflow = (() => {
   const nameInputToggle = (disable) => {
     const player2NameInput = document.getElementById("player2Name");
     player2NameInput.disabled = disable;
-  };
+
+    document.getElementById("symbolBox2").querySelectorAll("input").forEach(input => {
+      input.disabled = disable;
+  })};
   //uses the HTML attrib "onchange" to trigger
+
+
+///////////////////////
+  const disableOtherSymbols = (symbolBoxId, clickedInput) => {
+    const symbolBoxInputs = document.querySelectorAll(`#${symbolBoxId} input`);
+    symbolBoxInputs.forEach(input => {
+      if (input !== clickedInput) {
+        input.disabled = true;
+      }
+    });
+  }
+////////////////////
 
   const cpuCheck = () => {
     if (document.querySelector("#cpu").checked) {
@@ -317,7 +332,7 @@ const Startflow = (() => {
     GameBoard.tileArrayInit();
   };
 
-  return { confirmNames, showBoard, nameInputToggle };
+  return { confirmNames, showBoard, nameInputToggle, disableOtherSymbols };
 })();
 
 /////////////////////////////////////////////////

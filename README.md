@@ -1,9 +1,5 @@
 # tictacbro
 
-https://stackoverflow.com/questions/8200204/fit-background-image-to-div
-
-https://www.freecodecamp.org/news/all-emojis-emoji-list-for-copy-and-paste/
-
 When I started this project I was having a bit of trouble with classes vs factory functions, modules, and inheritance. I took a hiatus from study and came back to it a month or so later and to my dismay found I had absolutely no idea what I was doing AT ALL. It was like I completely forgot all programming knowledge, and didn't know where to begin. I felt I was in dire straights.
 
 In the end, it all came back more or less, and I was off to the races. Funny how that happens.
