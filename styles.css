@@ -212,9 +212,8 @@ input[name="symbols"] {
   /* Not removed via appearance */
   margin: 0;
 }
-input[type="radio"]:disabled + label {
+input[type="radio"][data-disabled="true"] + label {
   filter: grayscale(1) contrast(0.5) brightness(0.5);
-  /* You can add more styles if needed */
 }
 
 #startButtonsDiv {

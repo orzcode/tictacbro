@@ -157,24 +157,24 @@ const GameBoard = (() => {
         return;
       }
       //Checks wins/stalemates, displays results if so & ends game
-      
+
       //////////////
-        //Game needs to END upon successful Win Check
+      //Game needs to END upon successful Win Check
       //////////////
 
       //And if no win....... :
-        PlayersModule.activePlayer.switchActive();
-        // Switches to the other player
+      PlayersModule.activePlayer.switchActive();
+      // Switches to the other player
 
-        if (PlayersModule.activePlayer.getName() === "CPU") {
-          AI.move();
-        }
-        //checks if activePlayer is a CPU and runs their function.
-        //Perhaps a better method exists such as a 'CPU flag'
-        //rather than naming P2 "CPU" directly
+      if (PlayersModule.activePlayer.getName() === "CPU") {
+        AI.move();
+      }
+      //checks if activePlayer is a CPU and runs their function.
+      //Perhaps a better method exists such as a 'CPU flag'
+      //rather than naming P2 "CPU" directly
 
-        DisplayControl.infoFeed.whosTurn();
-        //Displays who's turn it is - only if there was no win condition
+      DisplayControl.infoFeed.whosTurn();
+      //Displays who's turn it is - only if there was no win condition
     } else console.log("Can't apply playerSymbol - tile is not NULL!");
   };
 
@@ -278,29 +278,40 @@ const GameBoard = (() => {
 /////////////////////////////////////////////////
 
 const Startflow = (() => {
-  const nameInputToggle = (disable) => {
+  const nameInputToggle = (trueOrFalse) => {
     const player2NameInput = document.getElementById("player2Name");
-    player2NameInput.disabled = disable;
+    player2NameInput.disabled = trueOrFalse;
 
-    //document.getElementById("symbolBox2").querySelectorAll("input").forEach(input => {
-      //input.disabled = disable;
-  //})
-};
+    document
+      .getElementById("symbolBox2")
+      .querySelectorAll("input")
+      .forEach((input) => {
+        input.disabled = trueOrFalse;
+        
+        input.dataset.disabled = trueOrFalse;
+        //this is for my own lazy CSS style doubleup
+
+        if(input.parentElement.classList.contains("symbolBoxes")) {
+          input.parentElement.classList.remove("symbolBoxes");
+        } else input.parentElement.classList.add("symbolBoxes");
+        //adds or removes classlist due to fucky pseudo-disable and hover/active states not working
+
+        //false means 'human' was clicked, inputs become enabled
+      });
+  };
   //uses the HTML attrib "onchange" to trigger
 
-
-///////////////////////
-  const disableOtherSymbols = (symbolBoxId, clickedInput) => {
-    console.log(symbolBoxId)
-    console.log(this)
-    const symbolBoxInputs = document.querySelectorAll(`#${symbolBoxId} input`);
-    symbolBoxInputs.forEach(element => {
-      if (element !== clickedInput) {
-        element.disabled = true;
-      }
-    });
-  }
-////////////////////
+  ///////////////////////
+  const disableOtherSymbols = (symbolBoxId, clickedSymbol) => {
+    document.querySelectorAll(`#symbolBox${symbolBoxId} input`)
+      .forEach((element) => {
+        if (element !== clickedSymbol) {
+          element.dataset.disabled = true;
+        } else element.dataset.disabled = false;
+      });
+    //toggles disabling (actually 'data-disabling') of other 3 symbols per player-box.
+    //disabling properly would render them un-clickable.
+  };
 
   const cpuCheck = () => {
     if (document.querySelector("#cpu").checked) {
