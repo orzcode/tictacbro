@@ -321,11 +321,20 @@ const Startflow = (() => {
   };
 
   const confirmNames = () => {
+    let p1Symbol = document.querySelector('input[name="symbols1"]:checked');
+    let p2Symbol = document.querySelector('input[name="symbols2"]:checked');
+
+    if(p1Symbol != null) {   
+      PlayersModule.player1.setSymbol(p1Symbol.value)
+    }
+    if(p2Symbol != null) {   
+      PlayersModule.player2.setSymbol(p2Symbol.value)
+    }
+
     PlayersModule.player1.setName(document.querySelector("#player1Name").value);
     PlayersModule.player2.setName(document.querySelector("#player2Name").value);
-    PlayersModule.player1.setSymbol(document.querySelector('input[name="symbols1"]:checked').value);
-    PlayersModule.player2.setSymbol(document.querySelector('input[name="symbols2"]:checked').value);
     //Dialog closes automatically by submitting form on Dialog
+    
     cpuCheck();
     //sets P2's name as "CPU" (which enables the CPU) if CPU radio is checked
     showBoard();
