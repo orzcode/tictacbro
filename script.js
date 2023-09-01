@@ -217,6 +217,10 @@ const GameBoard = (() => {
     document.querySelector("#player1Name").value = "";
     document.querySelector("#player2Name").value = "";
     //resets Dialog box names
+
+    Startflow.disableOtherSymbols(1, "reset");
+    Startflow.disableOtherSymbols(2, "reset");
+    //resets(removes) greyed-out state for symbols on startpage
   };
 
   const winChecker = () => {
@@ -308,9 +312,15 @@ const Startflow = (() => {
         if (element !== clickedSymbol) {
           element.dataset.disabled = true;
         } else element.dataset.disabled = false;
-      });
     //toggles disabling (actually 'data-disabling') of other 3 symbols per player-box.
     //disabling properly would render them un-clickable.
+
+        if(clickedSymbol === "reset"){
+        element.dataset.disabled = false;
+        }
+        //resets both symbol boxes' 'greyed-out' state
+        //usage: (1, "reset") AND (2, "reset")
+      });
   };
 
   const cpuCheck = () => {
