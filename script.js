@@ -22,8 +22,8 @@ const PlayersModule = (() => {
     };
   };
 
-  let player1 = createPlayer("Player 1", "🍈");
-  let player2 = createPlayer("Player 2", "🍌");
+  let player1 = createPlayer("Player 1", "❌");
+  let player2 = createPlayer("Player 2", "⭕");
 
   let activePlayer = player1;
 
@@ -323,6 +323,8 @@ const Startflow = (() => {
   const confirmNames = () => {
     PlayersModule.player1.setName(document.querySelector("#player1Name").value);
     PlayersModule.player2.setName(document.querySelector("#player2Name").value);
+    PlayersModule.player1.setSymbol(document.querySelector('input[name="symbols1"]:checked').value);
+    PlayersModule.player2.setSymbol(document.querySelector('input[name="symbols2"]:checked').value);
     //Dialog closes automatically by submitting form on Dialog
     cpuCheck();
     //sets P2's name as "CPU" (which enables the CPU) if CPU radio is checked

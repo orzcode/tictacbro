@@ -204,7 +204,8 @@ fieldset[name="symbols"] {
   font-size: clamp(3rem, 5vw, 6rem);
 }
 
-input[name="symbols"] {
+/*radio button styling*/
+input[type="radio"] {
   -webkit-appearance: none;
   appearance: none;
   /* For iOS < 15 to remove gradient background */
@@ -212,6 +213,7 @@ input[name="symbols"] {
   /* Not removed via appearance */
   margin: 0;
 }
+
 input[type="radio"][data-disabled="true"] + label {
   filter: grayscale(1) contrast(0.5) brightness(0.5);
 }
