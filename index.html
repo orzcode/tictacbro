@@ -73,6 +73,7 @@
 							<div class="symbolBoxes">
 								<input required type="radio" id="symbolBoxes_1A" value="🍒" name="symbols">
 								<label required for="symbolBoxes_1A">🍒</label>
+								<!-- only need one 'required' for whole batch of inputs -->
 							</div>
 							<div class="symbolBoxes">
 								<input type="radio" id="symbolBoxes_1B" value="🍌" name="symbols">
@@ -89,11 +90,11 @@
 						</div>
 						<div id="symbolBox2">
 							<div class="symbolBoxes">
-								<input required disabled type="radio" id="symbolBoxes_2A" value="🍄" name="symbols" onclick="Startflow.disableOtherSymbols('symbolBox1', this)">
-								<label required  for="symbolBoxes_2A">🍄</label>
+								<input required disabled type="radio" id="symbolBoxes_2A" value="🍄" name="symbols" oninput="Startflow.disableOtherSymbols('symbolBox2', this)">
+								<label required for="symbolBoxes_2A">🍄</label>
 							</div>
 							<div class="symbolBoxes">
-								<input disabled type="radio" id="symbolBoxes_2B" value="🌵" name="symbols">
+								<input disabled type="radio" id="symbolBoxes_2B" value="🌵" name="symbols" onclick="Startflow.disableOtherSymbols('symbolBox2', this)">
 								<label  for="symbolBoxes_2B">🌵</label>
 							</div>
 							<div class="symbolBoxes">

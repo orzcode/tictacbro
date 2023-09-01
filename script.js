@@ -282,18 +282,21 @@ const Startflow = (() => {
     const player2NameInput = document.getElementById("player2Name");
     player2NameInput.disabled = disable;
 
-    document.getElementById("symbolBox2").querySelectorAll("input").forEach(input => {
-      input.disabled = disable;
-  })};
+    //document.getElementById("symbolBox2").querySelectorAll("input").forEach(input => {
+      //input.disabled = disable;
+  //})
+};
   //uses the HTML attrib "onchange" to trigger
 
 
 ///////////////////////
   const disableOtherSymbols = (symbolBoxId, clickedInput) => {
+    console.log(symbolBoxId)
+    console.log(this)
     const symbolBoxInputs = document.querySelectorAll(`#${symbolBoxId} input`);
-    symbolBoxInputs.forEach(input => {
-      if (input !== clickedInput) {
-        input.disabled = true;
+    symbolBoxInputs.forEach(element => {
+      if (element !== clickedInput) {
+        element.disabled = true;
       }
     });
   }
