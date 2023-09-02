@@ -49,12 +49,9 @@ button {
   justify-content: center;
   padding: 0rem 1rem;
   border-radius: 1.5rem;
-  /* font-size: 3rem;
-  font-weight: 500; 
-  text-transform: uppercase;*/
   transition: all 0.1s ease-in-out;
   z-index: 1;
-  font-size: clamp(1.1rem, 3.3vw, 2.2rem);
+  font-size: clamp(1.4rem, 3.8vw, 2.6rem);
 }
 
 .btnShadow {
@@ -167,7 +164,8 @@ form {
   display: flex;
   flex-direction: column;
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  height: 80%;
   align-items: center;
   flex-wrap: wrap;
   gap: clamp(1.1rem, 3.3vw, 2.2rem);
@@ -235,7 +233,7 @@ input[type="radio"][data-disabled="true"] + label {
 #startButtonsDiv {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: clamp(1rem, 4vw, 2rem);
 }
 
 input[name="gameType"] + label {
