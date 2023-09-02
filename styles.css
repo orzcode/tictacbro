@@ -41,7 +41,7 @@ button {
   outline: inherit;
   border: 1px solid black;
   border-radius: 1.5rem;
-  text-shadow: 0.5px 0.5px #000000;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 .btnShadow {
   display: inline-flex;
@@ -237,7 +237,9 @@ input[type="radio"][data-disabled="true"] + label {
 }
 
 input[name="gameType"]:checked+label{
-  text-shadow: 2px 2px 2px black;
+  text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px black;
+  display: inline-block;
+  font-size: xx-large;
 }
 /*provides button-like effect when selecting radio button for cpu or human*/
 
