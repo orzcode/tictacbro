@@ -192,30 +192,38 @@ fieldset[name="symbols"] {
   border: none;
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  width: 80%;
 }
 #symbolBox1,
 #symbolBox2 {
-  display: flex;
+  /* display: flex;
   max-width: 30%;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: space-evenly;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-rows: repeat(2, 1fr); /* 2 rows */
+  grid-gap: 4px;  
   font-size: clamp(3rem, 5vw, 6rem);
 }
 
-/*radio button styling*/
-input[type="radio"] {
-  -webkit-appearance: none;
-  appearance: none;
-  /* For iOS < 15 to remove gradient background */
-  background-color: #fff;
-  /* Not removed via appearance */
-  margin: 0;
+div:has(input){
+  position: relative;
+}
 
-  /* opacity: 0;
-  position: fixed;
-  width: 0; */
+/*radio button styling*/
+/*top section here is a traditional radio button hide method*/
+/*below it is my own implementation to retain validation msg*/
+input[type="radio"] {
+  /* -webkit-appearance: none;
+  appearance: none; */
+  /* For iOS < 15 to remove gradient background */
+  /* background-color: #fff; */
+  /* Not removed via appearance */
+  /* margin: 0; */    
+  opacity: 0;
+  position: absolute;
+  top: 150%;
+  left: 80%;
 }
 
 input[type="radio"][data-disabled="true"] + label {
