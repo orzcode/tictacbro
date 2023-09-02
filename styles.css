@@ -236,6 +236,12 @@ input[type="radio"][data-disabled="true"] + label {
   gap: 1rem;
 }
 
+input[name="gameType"]:checked+label{
+  text-shadow: 2px 2px 2px black;
+}
+/*provides button-like effect when selecting radio button for cpu or human*/
+
+
 #gameBoard {
   display: none; /*should be Grid*/
   margin: 4rem;
