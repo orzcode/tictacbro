@@ -193,34 +193,37 @@ const GameBoard = (() => {
   };
 
   const reset = () => {
-    tileArray.fill(null);
-    //resets tileArray
-    for (const tileElement of document.querySelectorAll(".tile")) {
-      tileElement.innerHTML = "";
-    }
-    //resets visual gameboard HTML
-    PlayersModule.resetPlayers();
-    //resets player names, and Active Player
+    // tileArray.fill(null);
+    // //resets tileArray
+    // for (const tileElement of document.querySelectorAll(".tile")) {
+    //   tileElement.innerHTML = "";
+    // }
+    // //resets visual gameboard HTML
+    // PlayersModule.resetPlayers();
+    // //resets player names, and Active Player
 
-    DisplayControl.pointerEvents("reset");
-    //restores pointerEvent (click)ability
+    // DisplayControl.pointerEvents("reset");
+    // //restores pointerEvent (click)ability
 
-    DisplayControl.infoFeed.matchStart();
-    //resets info Display prompt to Player 1's turn (i.e: match start)
+    // DisplayControl.infoFeed.matchStart();
+    // //resets info Display prompt to Player 1's turn (i.e: match start)
 
-    document.querySelector("dialog").show();
-    document.querySelector("#gameBoard").style.display = "none";
-    document.querySelector("#infoDisplay").style.display = "none";
-    document.querySelector("#infoDisplay button").style.visibility = "hidden";
-    //hides Gameboard and re-opens Start Screen modal/dialog
+    // document.querySelector("dialog").show();
+    // document.querySelector("#gameBoard").style.display = "none";
+    // document.querySelector("#infoDisplay").style.display = "none";
+    // document.querySelector("#infoDisplay button").style.visibility = "hidden";
+    // //hides Gameboard and re-opens Start Screen modal/dialog
 
-    document.querySelector("#player1Name").value = "";
-    document.querySelector("#player2Name").value = "";
-    //resets Dialog box names
+    // document.querySelector("#player1Name").value = "";
+    // document.querySelector("#player2Name").value = "";
+    // //resets Dialog box names
 
-    Startflow.disableOtherSymbols(1, "reset");
-    Startflow.disableOtherSymbols(2, "reset");
-    //resets(removes) greyed-out state for symbols on startpage
+    // Startflow.disableOtherSymbols(1, "reset");
+    // Startflow.disableOtherSymbols(2, "reset");
+    // //resets(removes) greyed-out state for symbols on startpage
+
+    location.reload()
+    //uhh yeah, didn't realize this would be just as fast and much simpler...
   };
 
   const winChecker = () => {
