@@ -143,7 +143,7 @@ const GameBoard = (() => {
       console.log("---A tile has been clicked!--(tileClickEvents)--");
       //for debugging clarity :P
 
-      document.querySelector(`#tile-${tile}`).innerHTML =
+      document.querySelector(`#tile-${tile}`).innerHTML = 
         PlayersModule.activePlayer.getSymbol();
       // Updates tile DIV with player symbol
 
@@ -333,6 +333,15 @@ const Startflow = (() => {
     }
   };
 
+  const goodLookCheck = () => {
+    if (document.querySelector("#player1Name").value === "goodlook" || 
+    document.querySelector("#player1Name").value === "Goodlook" ||
+    document.querySelector("#player1Name").value === "JC") {
+      PlayersModule.player1.setSymbol('<div id=goodlook></div>');
+    }
+  }
+  //Secret cheat code! Makes P1's symbol into a very good look.
+
   const confirmNames = () => {
     let p1Symbol = document.querySelector('input[name="symbols1"]:checked');
     let p2Symbol = document.querySelector('input[name="symbols2"]:checked');
@@ -350,6 +359,10 @@ const Startflow = (() => {
     
     cpuCheck();
     //sets P2's name as "CPU" (which enables the CPU) if CPU radio is checked
+
+    goodLookCheck();
+    //checks for the presence of a good look
+
     showBoard();
     //DOM board reveal - but also calls the tileArrayInit
   };
@@ -370,7 +383,7 @@ const Startflow = (() => {
     GameBoard.tileArrayInit();
   };
 
-  return { confirmNames, showBoard, nameInputToggle, disableOtherSymbols };
+  return { confirmNames, showBoard, nameInputToggle, disableOtherSymbols};
 })();
 
 /////////////////////////////////////////////////

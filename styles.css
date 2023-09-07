@@ -118,13 +118,36 @@ h1 {
   /*may want to rejig this last one*/
 }
 
+/* Secret Goodlook styling */
+.tile #goodlook{
+  background-image: url(goodlook.webp);
+  background-size: cover;
+  background-position: center;
+  display: inline;
+  width: clamp(8rem, 13vw, 16rem);
+  height: clamp(10rem, 16vw, 20rem)
+}
+
+#infoDisplay #goodlook{
+  background-image: url(goodlook.webp);
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
+  width: clamp(2.4rem, 6vw, 4.4rem);
+  height: clamp(3.2rem, 8vw, 6rem);
+  margin-bottom: -1rem;
+}
+/* Secret Goodlook styling */
+
+
 #infoDisplay {
   display: none; /*should be Flex*/
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   justify-self: start;
   flex-grow: 0;
+  height: 10rem;
   gap: 1rem;
 }
 #infoDisplay button {
