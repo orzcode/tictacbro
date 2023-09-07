@@ -125,7 +125,13 @@ h1 {
   background-position: center;
   display: inline;
   width: clamp(8rem, 13vw, 16rem);
-  height: clamp(10rem, 16vw, 20rem)
+  height: clamp(10rem, 16vw, 20rem);
+  animation: colorRotate 1s linear infinite;
+}
+@keyframes colorRotate {
+  100% {
+    -webkit-filter: hue-rotate(360deg);
+  }
 }
 
 #infoDisplay #goodlook{
@@ -138,6 +144,16 @@ h1 {
   margin-bottom: -1rem;
 }
 /* Secret Goodlook styling */
+
+.trippyWin {
+  animation: colorRotate 1s linear infinite;
+}
+@keyframes colorRotate {
+  100% {
+    -webkit-filter: hue-rotate(360deg);
+  }
+}
+/* trippy win animation */
 
 
 #infoDisplay {
