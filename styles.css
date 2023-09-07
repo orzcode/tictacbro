@@ -126,7 +126,7 @@ h1 {
   display: inline;
   width: clamp(8rem, 13vw, 16rem);
   height: clamp(10rem, 16vw, 20rem);
-  animation: colorRotate 1s linear infinite;
+  /* animation: colorRotate 1s linear infinite; */
 }
 @keyframes colorRotate {
   100% {
@@ -154,6 +154,27 @@ h1 {
   }
 }
 /* trippy win animation */
+
+.tile #ultros{
+  background-image: url(ultros.webp);
+  background-size: cover;
+  background-position: center;
+  display: inline;
+  width: clamp(9rem, 13vw, 19rem);
+  height: clamp(9rem, 13vw, 19rem);
+  border-radius: 50%;
+}
+#infoDisplay #ultros{
+  background-image: url(ultros.webp);
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
+  width: clamp(2.4rem, 6vw, 4.4rem);
+  height: clamp(2.4rem, 6vw, 4.4rem);
+  margin-bottom: -1rem;
+}
+/* ultros styling */
+
 
 
 #infoDisplay {

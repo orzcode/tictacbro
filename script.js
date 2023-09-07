@@ -116,6 +116,11 @@ const DisplayControl = (() => {
     document.querySelector("#infoDisplay button").style.visibility = "visible";
     //reveals 'Restart?' button upon win condition
 
+    document.querySelectorAll(".tile #goodlook").forEach((element) => {
+      element.style.animation = "colorRotate 1s linear infinite";
+    })
+    //add trippy win animation if 'goodlook' is enabled
+
     pointerEvents("disableAll");
     //removes pointerEvent (click)ability
 
@@ -331,6 +336,10 @@ const Startflow = (() => {
       PlayersModule.player2.setName("CPU");
       PlayersModule.player2.setSymbol("🗿");
     }
+    if (goodLookCheck() === true){
+      PlayersModule.player2.setSymbol('<div id=ultros></div>');
+    }
+    //sets CPU to ultros if goodlook is enabled
   };
 
   const goodLookCheck = () => {
@@ -338,7 +347,8 @@ const Startflow = (() => {
     document.querySelector("#player1Name").value === "Goodlook" ||
     document.querySelector("#player1Name").value === "JC") {
       PlayersModule.player1.setSymbol('<div id=goodlook></div>');
-    }
+      return true
+    }    
   }
   //Secret cheat code! Makes P1's symbol into a very good look.
 
