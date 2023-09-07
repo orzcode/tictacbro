@@ -167,7 +167,7 @@ form {
   justify-content: space-around;
   height: 80%;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: clamp(1.1rem, 3.3vw, 2.2rem);
 }
 fieldset[name="names"] {
