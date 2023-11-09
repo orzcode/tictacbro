@@ -58,10 +58,6 @@ const PlayersModule = (() => {
 /////////////////////////////////////////////////
 
 const DisplayControl = (() => {
-  const removeME = () => {
-    console.log("test from DisplayControl.removeME - testing IIFE")
-  }
-  
   document.querySelector("input").blur();
   const pointerEvents = (mode) => {
     if (typeof mode === "number") {
